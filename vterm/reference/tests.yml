@@ -1,0 +1,1534 @@
+---
+# Cell attributes:
+states:
+  - name: 0
+    desc: Applied to all states by default
+    states:
+      style_reverse: false
+      style_fg: white
+      screg_top: 12
+      screg_bottom: 24
+      decset_decckm: false
+
+attributes:
+  - name: 0
+    desc: Applied to all chars by default
+    attributes:
+      - reverse: false
+      - fg: white
+  - name: r
+    desc: Reverse video
+    attributes:
+      - reverse: true
+
+functions:
+  - function: PRINT
+    tests:
+      - name: Print ascii char
+        desc: New char displayed, cursor advances by 1
+        string: x
+        initial:
+          inherit: default
+          screen: |
+            a^b c
+            d e f
+            g h i
+        final:
+          screen: |
+            x b^c
+            d e f
+            g h i
+      - name: Print wide char
+        desc: New char displayed, cursor advances by char width
+        string: 👦
+        initial:
+          inherit: default
+          screen: |
+            a^b c
+            . . .
+            . . .
+        final:
+          screen: |
+            👦   c^
+            .  . .
+            .  . .
+      - name: Print at eol
+        desc: New char displayed, cursor advances to next line
+        string: x
+        initial:
+          inherit: default
+          screen: |
+            a b c^
+            . . .
+            . . .
+        final:
+          screen: |
+            a b x
+            .^. .
+            . . .
+      - name: Print wide char at eol
+        desc: Char at eol erased, new char displayed on next line, cursor advances past
+        string: 👦
+        initial:
+          inherit: default
+          screen: |
+            a b c^
+            . . .
+        final:
+          screen: |
+            a b .
+            👦  .^
+      - name: Print at end of screen
+        desc: New char displayed, screen scrolls up, cursor advances to new line
+        string: 12
+        initial:
+          inherit: default
+          screen: |
+            a b c
+            d e f
+            g h .^
+        final:
+          screen: |
+            d e f
+            g h 1
+            2 .^.
+      - name: SGR 7 print
+        desc: Print reverse video
+        string: x
+        initial:
+          flags:
+            style_reverse: true
+          screen: |
+            .^ .
+        final:
+          flags:
+            style_reverse: true
+          screen: |
+            x(reverse) .^
+      - name: Overwrite
+        desc: Print overwrites old cell attributes
+        string: b
+        initial:
+          screen: |
+            a(reverse)^ .
+        final:
+          screen: |
+            b .^
+      - name: Scroll region up if printing to last line
+        desc: Scroll up when print on last line of region
+        ## Is this required on print, or just on LF/RI??
+        disabled: true
+        string: x
+        initial:
+          flags:
+            screg_top: 1
+            screg_bottom: 2
+          screen: |
+            a b c
+            d e f
+            g h i^
+            j k l
+        final:
+          flags:
+            screg_top: 1
+            screg_bottom: 2
+          screen: |
+            a b c
+            g h i
+            x .^.
+            j k l
+
+  - function: CUU
+    tests:
+      - name: CUU
+        desc: Cursor should go up by 1
+        initial:
+          inherit: default
+          screen: |
+            a b c
+            d e f
+            g h^i
+        final:
+          screen: |
+            a b c
+            d e^f
+            g h i
+      - name: CUU 2
+        desc: Cursor should go up by 2
+        params:
+          - 2
+        initial:
+          screen: |
+            a b c
+            d e f
+            g h^i
+        final:
+          screen: |
+            a b^c
+            d e f
+            g h i
+      - name: CUU near top row
+        desc: Cursor moves to top row
+        params:
+          - 5
+        initial:
+          screen: |
+            a b c
+            d e^f
+            g h i
+        final:
+          screen: |
+            a b^c
+            d e f
+            g h i
+
+  - function: CUD
+    tests:
+      - name: CUD
+        desc: Cursor should go down by 1
+        initial:
+          screen: |
+            a b^c
+            d e f
+            g h i
+        final:
+          screen: |
+            a b c
+            d e^f
+            g h i
+      - name: CUD 2
+        desc: Cursor should go down by 2
+        params:
+          - 2
+        initial:
+          screen: |
+            a b^c
+            d e f
+            g h i
+        final:
+          screen: |
+            a b c
+            d e f
+            g h^i
+      - name: CUD near bottom row
+        desc: Cursor goes to bottom row
+        params:
+          - 5
+        initial:
+          screen: |
+            a b c
+            d e^f
+            g h i
+        final:
+          screen: |
+            a b c
+            d e f
+            g h^i
+
+  - function: CUF
+    tests:
+      - name: CUF
+        desc: Cursor should go right by 1
+        initial:
+          screen: |
+            a b c
+            d^e f
+            g h i
+        final:
+          screen: |
+            a b c
+            d e^f
+            g h i
+      - name: CUF 2
+        desc: Cursor should go right by 2
+        params:
+          - 2
+        initial:
+          screen: |
+            a b c
+            d^e f
+            g h i
+        final:
+          screen: |
+            a b c
+            d e f^
+            g h i
+      - name: CUF near right edge
+        desc: Cursor goes to last column
+        params:
+          - 5
+        initial:
+          screen: |
+            a b c
+            d e^f
+            g h i
+        final:
+          screen: |
+            a b c
+            d e f^
+            g h i
+
+  - function: CUB
+    tests:
+      - name: CUB
+        desc: Cursor should go left by 1
+        initial:
+          screen: |
+            a b c
+            d e f^
+            g h i
+        final:
+          screen: |
+            a b c
+            d e^f
+            g h i
+      - name: CUB 2
+        desc: Cursor should go left by 2
+        params:
+          - 2
+        initial:
+          screen: |
+            a b c
+            d e f^
+            g h i
+        final:
+          screen: |
+            a b c
+            d^e f
+            g h i
+      - name: CUB near left edge
+        desc: Cursor goes to first column
+        params:
+          - 5
+        initial:
+          screen: |
+            a b c
+            d e^f
+            g h i
+        final:
+          screen: |
+            a b c
+            d^e f
+            g h i
+
+  - function: BS
+    tests:
+      - name: BS
+        desc: Cursor should go left by 1
+        initial:
+          screen: |
+            a b c
+            d e f^
+            g h i
+        final:
+          screen: |
+            a b c
+            d e^f
+            g h i
+      - name: BS from left column
+        desc: Cursor stays in first column
+        initial:
+          screen: |
+            a b c
+            d^e f
+            g h i
+        final:
+          screen: |
+            a b c
+            d^e f
+            g h i
+
+  - function: CHA
+    tests:
+      - name: CHA
+        desc: Cursor Character Absolute [column]
+        params:
+          - 2
+        initial:
+          screen: |
+            a b c^
+        final:
+          screen: |
+            a b^c
+
+  - function: CR
+    tests:
+      - name: CR
+        desc: Cursor should go to left column
+        initial:
+          screen: |
+            a b c
+            d e f^
+            g h i
+        final:
+          screen: |
+            a b c
+            d^e f
+            g h i
+
+  - function: CUP
+    tests:
+      - name: CUP default params
+        desc: Cursor should move to home position
+        initial:
+          screen: |
+            a b c
+            d e f
+            g h^i
+        final:
+          screen: |
+            a^b c
+            d e f
+            g h i
+      - name: CUP with params
+        desc: Cursor should move to specified position
+        params:
+          - 3
+          - 1
+        initial:
+          screen: |
+            a^b c
+            d e f
+            g h i
+        final:
+          screen: |
+            a b c
+            d e f
+            g^h i
+
+  - function: ED
+    tests:
+    - name: ED default param 0
+      desc: Delete from cursor to end
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          a b c
+          d .^.
+          . . .
+    - name: ED 0
+      desc: Delete from cursor to end
+      params:
+        - 0
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          a b c
+          d .^.
+          . . .
+    - name: ED 1
+      desc: Delete from start to cursor
+      params:
+        - 1
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          . . .
+          . .^f
+          g h i
+    - name: ED 2
+      desc: Delete whole screen
+      params:
+        - 2
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          . . .
+          . .^.
+          . . .
+
+  - function: EL
+    tests:
+    - name: EL default param 0
+      desc: Delete from cursor to end of line
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          a b c
+          d .^.
+          g h i
+    - name: EL 0
+      desc: Delete from cursor to end of line
+      params:
+        - 0
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          a b c
+          d .^.
+          g h i
+    - name: EL 1
+      desc: Delete from beginning of line to cursor
+      params:
+        - 1
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          a b c
+          . .^f
+          g h i
+    - name: EL 2
+      desc: Delete whole line
+      params:
+        - 2
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          a b c
+          . .^.
+          g h i
+
+  - function: DL
+    tests:
+    - name: DL default param 1
+      desc: Delete current line
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          a b c
+          g h^i
+          . . .
+    - name: DL 0
+      desc: Delete no lines
+      params:
+        - 0
+      initial:
+        screen: |
+          a b c
+          d e^f
+          g h i
+      final:
+        screen: |
+          a b c
+          d e^f
+          g h i
+    - name: DL 2
+      desc: Delete 2 lines
+      params:
+        - 2
+      initial:
+        screen: |
+          a b^c
+          d e f
+          g h i
+      final:
+        screen: |
+          g h^i
+          . . .
+          . . .
+    # - name: DL 2
+    #   desc: Delete whole line
+    #   params:
+    #     - 2
+    #   initial:
+    #     screen: |
+    #       a b c
+    #       d e^f
+    #       g h i
+    #   final:
+    #     screen: |
+    #       a b c
+    #       . .^.
+          # g h i
+
+  - function: DECSET
+    tests:
+    - name: DECCKM
+      desc: Application Cursor Keys
+      params:
+        - 1
+      initial:
+        screen: |
+          a^
+      final:
+        flags:
+          decset_decckm: true
+        screen: |
+          a^
+    - name: noblink
+      desc: Stop Blinking Cursor
+      params:
+        - 12
+      initial:
+        screen: |
+          a^
+      final:
+        flags:
+          decset_noblink: true
+        screen: |
+          a^
+
+  - function: SGR
+    tests:
+    - name: SGR default param
+      desc: Switch to default rendering
+      params:
+        - 0
+      initial:
+        flags:
+          style_bold: true
+          style_reverse: true
+          style_underlined: true
+        screen: |
+          a^
+      final:
+        flags:
+        screen: |
+          a^
+    - name: SGR 1
+      desc: Switch to bold
+      params:
+        - 1
+      initial:
+        flags:
+          #style_bold: false
+        screen: |
+          a^
+      final:
+        flags:
+          style_bold: true
+        screen: |
+          a^
+    - name: SGR 3
+      desc: Switch to italics
+      params:
+        - 3
+      initial:
+        flags:
+          #style_italics: false
+        screen: |
+          a^
+      final:
+        flags:
+          style_italics: true
+        screen: |
+          a^
+    - name: SGR 4
+      desc: Switch to underlined
+      params:
+        - 4
+      initial:
+        flags:
+          #style_underlined: false
+        screen: |
+          a^
+      final:
+        flags:
+          style_underlined: true
+        screen: |
+          a^
+    - name: SGR 7
+      desc: Switch to reverse video
+      params:
+        - 7
+      initial:
+        flags:
+          #style_reverse: false
+        screen: |
+          a^
+      final:
+        flags:
+          style_reverse: true
+        screen: |
+          a^
+    - name: SGR 9
+      desc: Crossed out
+      params:
+        - 9
+      initial:
+        flags:
+          #style_crossed_out: false
+        screen: |
+          a^
+      final:
+        flags:
+          style_crossed_out: true
+        screen: |
+          a^
+    - name: SGR 23
+      desc: Not italicized, not fraktur
+      params:
+        - 23
+      initial:
+        flags:
+          style_italics: true
+          style_fraktur: true
+        screen: |
+          a^
+      final:
+        flags:
+          #style_italics: false
+          #style_fraktur: false
+        screen: |
+          a^
+    - name: SGR 24
+      desc: not underlined (neither singly nor doubly)
+      params:
+        - 24
+      initial:
+        flags:
+          style_underlined: true
+          style_double_underlined: true
+        screen: |
+          a^
+      final:
+        flags:
+          #style_underlined: false
+          #style_double_underlined: false
+        screen: |
+          a^
+    - name: SGR 27
+      desc: Positive image
+      params:
+        - 27
+      initial:
+        flags:
+          style_reverse: true
+        screen: |
+          a^
+      final:
+        flags:
+          #style_reverse: false
+        screen: |
+          a^
+    - name: SGR 29
+      desc: Crossed out
+      params:
+        - 29
+      initial:
+        flags:
+          style_crossed_out: true
+        screen: |
+          a^
+      final:
+        flags:
+          #style_crossed_out: false
+        screen: |
+          a^
+    - name: SGR 30
+      desc: Black fg
+      params:
+        - 30
+      initial:
+        flags:
+          style_fg: red
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+    - name: SGR 31
+      desc: Red fg
+      params:
+        - 31
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: red
+        screen: |
+          a^
+    - name: SGR 32
+      desc: Green fg
+      params:
+        - 32
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: green
+        screen: |
+          a^
+    - name: SGR 33
+      desc: Yellow fg
+      params:
+        - 33
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: yellow
+        screen: |
+          a^
+    - name: SGR 34
+      desc: Blue fg
+      params:
+        - 34
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: blue
+        screen: |
+          a^
+    - name: SGR 35
+      desc: Magenta fg
+      params:
+        - 35
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: magenta
+        screen: |
+          a^
+    - name: SGR 36
+      desc: Cyan fg
+      params:
+        - 36
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: cyan
+        screen: |
+          a^
+    - name: SGR 37
+      desc: White fg
+      params:
+        - 37
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: white
+        screen: |
+          a^
+    - name: SGR 41
+      desc: Red fg
+      params:
+        - 41
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: red
+        screen: |
+          a^
+    - name: SGR 42
+      desc: Green fg
+      params:
+        - 42
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: green
+        screen: |
+          a^
+    - name: SGR 43
+      desc: Yellow fg
+      params:
+        - 43
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: yellow
+        screen: |
+          a^
+    - name: SGR 44
+      desc: Blue fg
+      params:
+        - 44
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: blue
+        screen: |
+          a^
+    - name: SGR 45
+      desc: Magenta fg
+      params:
+        - 45
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: magenta
+        screen: |
+          a^
+    - name: SGR 46
+      desc: Cyan fg
+      params:
+        - 46
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: cyan
+        screen: |
+          a^
+    - name: SGR 47
+      desc: White fg
+      params:
+        - 47
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: white
+        screen: |
+          a^
+    - name: SGR 90
+      desc: Black fg (16 colors)
+      params:
+        - 90
+      initial:
+        flags:
+          style_fg: red
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+    - name: SGR 91
+      desc: Red fg (16 colors)
+      params:
+        - 91
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: red
+        screen: |
+          a^
+    - name: SGR 92
+      desc: Green fg (16 colors)
+      params:
+        - 92
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: green
+        screen: |
+          a^
+    - name: SGR 93
+      desc: Yellow fg (16 colors)
+      params:
+        - 93
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: yellow
+        screen: |
+          a^
+    - name: SGR 94
+      desc: Blue fg (16 colors)
+      params:
+        - 94
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: blue
+        screen: |
+          a^
+    - name: SGR 95
+      desc: Magenta fg (16 colors)
+      params:
+        - 95
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: magenta
+        screen: |
+          a^
+    - name: SGR 96
+      desc: Cyan fg (16 colors)
+      params:
+        - 96
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: cyan
+        screen: |
+          a^
+    - name: SGR 97
+      desc: White fg (16 colors)
+      params:
+        - 97
+      initial:
+        flags:
+          style_fg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_fg: white
+        screen: |
+          a^
+    - name: SGR 101
+      desc: Red fg (16 colors)
+      params:
+        - 41
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: red
+        screen: |
+          a^
+    - name: SGR 102
+      desc: Green fg (16 colors)
+      params:
+        - 42
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: green
+        screen: |
+          a^
+    - name: SGR 103
+      desc: Yellow fg (16 colors)
+      params:
+        - 43
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: yellow
+        screen: |
+          a^
+    - name: SGR 104
+      desc: Blue fg (16 colors)
+      params:
+        - 44
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: blue
+        screen: |
+          a^
+    - name: SGR 105
+      desc: Magenta fg (16 colors)
+      params:
+        - 45
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: magenta
+        screen: |
+          a^
+    - name: SGR 106
+      desc: Cyan fg (16 colors)
+      params:
+        - 46
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: cyan
+        screen: |
+          a^
+    - name: SGR 107
+      desc: White fg (16 colors)
+      params:
+        - 47
+      initial:
+        flags:
+          style_bg: black
+        screen: |
+          a^
+      final:
+        flags:
+          style_bg: white
+        screen: |
+          a^
+    - name: SGR multiple params
+      desc: Params should be interpreted sequentially, 0 resets, 1 for bold
+      params:
+        - 0
+        - 1
+      initial:
+        flags:
+          style_reverse: true
+        screen: |
+          a^
+      final:
+        flags:
+          style_bold: true
+        screen: |
+          a^
+
+  # - function: DECSTBM
+  #   tests:
+  #   - name: DECSTBM default params
+  #     desc: Should set scrolling region to whole screen, move cursor to origin
+  #     initial:
+  #       flags:
+  #         screg_top: 1
+  #         screg_bottom: 1
+  #       screen: |
+  #         . . .
+  #         . .^.
+  #         . . .
+  #     final:
+  #       flags:
+  #         # FIXME - b/c default value, do not appear in map, unclear
+  #         screg_top: 0
+  #         screg_bottom: 2
+  #       screen: |
+  #         .^. .
+  #         . . .
+  #         . . .
+
+  - function: LF
+    tests:
+      - name: Line feed
+        desc: Move cursor down
+        #disabled: true
+        initial:
+          screen: |
+            a b^c
+            d e f
+            g h i
+        final:
+          screen: |
+            a b c
+            d e^f
+            g h i
+      - name: Line feed on last line
+        desc: Scroll screen up
+        initial:
+          flags:
+            screg_top: 0
+            screg_bottom: 2
+          screen: |
+            a b c
+            d e f
+            g h^i
+        final:
+          flags:
+            screg_top: 0
+            screg_bottom: 2
+          screen: |
+            d e f
+            g h i
+            . .^.
+      - name: Line feed on region last line
+        desc: Scroll region up
+        initial:
+          flags:
+            screg_top: 1
+            screg_bottom: 2
+          screen: |
+            a b c
+            d e f
+            g h^i
+            j k l
+        final:
+          flags:
+            screg_top: 1
+            screg_bottom: 2
+          screen: |
+            a b c
+            g h i
+            . .^.
+            j k l
+
+  # - function: RI
+  #   tests:
+  #     - name: Reverse Index
+  #       desc: Move cursor up
+  #       initial:
+  #         screen: |
+  #           a b c
+  #           d e f
+  #           g h^i
+  #       final:
+  #         screen: |
+  #           a b c
+  #           d e^f
+  #           g h i
+  #     - name: RI on top line
+  #       desc: Scroll screen down
+  #       initial:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b^c
+  #           d e f
+  #           g h i
+  #       final:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           . .^.
+  #           a b c
+  #           d e f
+  #     - name: RI on region top line
+  #       desc: Scroll region down
+  #       initial:
+  #         flags:
+  #           screg_top: 1
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b c
+  #           d e^f
+  #           g h i
+  #           j k l
+  #       final:
+  #         flags:
+  #           screg_top: 1
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b c
+  #           . .^.
+  #           d e f
+  #           j k l
+
+  # - function: IL
+  #   tests:
+  #     - name: Insert line from top
+  #       desc: Should insert 1 line
+  #       initial:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b^c
+  #           d e f
+  #           g h i
+  #       final:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           . .^.
+  #           a b c
+  #           d e f
+  #     - name: Insert line from bottom
+  #       desc: Should insert 1 line
+  #       initial:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b c
+  #           d e f
+  #           g h^i
+  #       final:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b c
+  #           d e f
+  #           . .^.
+  #     - name: Insert line not from top
+  #       desc: Should insert 1 line
+  #       initial:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b c
+  #           d e^f
+  #           g h i
+  #       final:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b c
+  #           . .^.
+  #           d e f
+  #     - name: Insert 2 lines from middle
+  #       desc: Should do it
+  #       params:
+  #         - 2
+  #       initial:
+  #         flags:
+  #           screg_top: 1
+  #           screg_bottom: 3
+  #         screen: |
+  #           a b c
+  #           d e f
+  #           g h^i
+  #           j k l
+  #           m n o
+  #       final:
+  #         flags:
+  #           screg_top: 1
+  #           screg_bottom: 3
+  #         screen: |
+  #           a b c
+  #           d e f
+  #           . .^.
+  #           . . .
+  #           m n o
+  #     - name: Insert 2 lines from top
+  #       desc: Should insert 2 lines
+  #       params:
+  #         - 2
+  #       initial:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b^c
+  #           d e f
+  #           g h i
+  #       final:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 2
+  #         screen: |
+  #           . .^.
+  #           . . .
+  #           a b c
+  #     - name: Insert many lines from top
+  #       desc: Should scroll lines out of screen
+  #       params:
+  #         - 3
+  #       initial:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 1
+  #         screen: |
+  #           a b^c
+  #           d e f
+  #           g h i
+  #       final:
+  #         flags:
+  #           screg_top: 0
+  #           screg_bottom: 1
+  #         screen: |
+  #           . .^.
+  #           . . .
+  #           g h i
+  #     - name: Insert from off-region
+  #       desc: Should noop
+  #       initial:
+  #         flags:
+  #           screg_top: 1
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b^c
+  #           d e f
+  #           g h i
+  #       final:
+  #         flags:
+  #           screg_top: 1
+  #           screg_bottom: 2
+  #         screen: |
+  #           a b^c
+  #           d e f
+  #           g h i
+
+  # - function: DCH
+  #   tests:
+  #     - name: Delete char
+  #       desc: Should delete char and shift rest left
+  #       initial:
+  #         screen: |
+  #           a b^c
+  #           d e f
+  #       final:
+  #         screen: |
+  #           a c^.
+  #           d e f
+  #     - name: Delete char at eol
+  #       desc: Should delete char
+  #       initial:
+  #         screen: |
+  #           a b c^
+  #           d e f
+  #       final:
+  #         screen: |
+  #           a b .^
+  #           d e f
+  #     - name: Delete 2 chars at mol
+  #       desc: Should delete 2 chars and shift rest left
+  #       params:
+  #         - 2
+  #       initial:
+  #         screen: |
+  #           a b^c d e
+  #           f . . . .
+  #       final:
+  #         screen: |
+  #           a d^e . .
+  #           f . . . .
+  #     - name: Delete too many chars
+  #       desc: Should delete rest of line
+  #       params:
+  #         - 9
+  #       initial:
+  #         flags:
+  #           screg_top: -1
+  #           screg_bottom: -1
+  #         screen: |
+  #           a b^c
+  #           d e f
+  #       final:
+  #         screen: |
+  #           a .^.
+  #           d e f
+
+  # - function: DECSC
+  #   tests:
+  #     - name: Save cursor
+  #       desc: Should save
+  #       initial:
+  #         flags:
+  #           saved_cursor_x: -1
+  #           saved_cursor_y: -1
+  #         screen: |
+  #           a b c
+  #           d e f^
+  #       final:
+  #         flags:
+  #           saved_cursor_x: 2
+  #           saved_cursor_y: 1
+  #         screen: |
+  #           a b c
+  #           d e f^
+
+  # - function: DECRC
+  #   tests:
+  #     - name: Restore cursor
+  #       desc:
+  #       initial:
+  #         flags:
+  #           saved_cursor_x: 2
+  #           saved_cursor_y: 1
+  #         screen: |
+  #           a^b c
+  #           d e f
+  #       final:
+  #         flags:
+  #           saved_cursor_x: 2
+  #           saved_cursor_y: 1
+  #         screen: |
+  #           a b c
+  #           d e f^

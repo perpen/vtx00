@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+cd $(dirname $0)
+# ./simple.py "$@" > vcon.log 2>&1
+./dwm.py "$@" > vcon.log 2>&1

@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e -o pipefail
+
+build() {
+    inw sync *.go -- go build
+}
+
+test() {
+    inw sync *.go ../vparser/*.go -- go test
+}
+
+# runs a shell while logging all output to a file
+spy() {
+    echo "run './dev tail' in another window"
+    mkdir -p tmp
+    cd tmp
+    export PS1='spy $ '
+    go run ../spy/spy.go "$@"
+}
+
+tail() {
+    less +F --follow-name tmp/spy.log
+}
+
+cd "$(dirname $0)"
+eval "$@"

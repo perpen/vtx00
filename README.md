@@ -1,0 +1,6 @@
+- vparser: parsers for terminal control sequences and utf8
+- vterm: terminal implementation
+- vscreen: terminal scrolling/resizing
+- vman: pane management
+- vcon: controller
+- vsel: copy-mode

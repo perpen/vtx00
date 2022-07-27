@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e -o pipefail
+
+run() {
+    inw async *.go -- bash -c 'reset; go build && ./vsel sample.txt; echo done'
+}
+
+build() {
+    inw sync *.go -- go build
+}
+
+test() {
+    inw sync *.go -- go test
+}
+
+log() {
+    # less +F --follow-name vman.log
+    case "$1" in
+    notimp) rx='not implemented' ;;
+    *) rx=. ;;
+    esac
+    tail -F vman.log | grep -E "$rx"
+}
+
+cd "$(dirname $0)"
+eval "$@"

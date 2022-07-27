@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e -o pipefail
+
+build() {
+    inw sync *.go -- go build
+}
+
+test() {
+    inw sync *.go -- go test
+}
+
+cd "$(dirname $0)"
+eval "$@"

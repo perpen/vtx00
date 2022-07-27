@@ -1,0 +1,2560 @@
+---
+BEL:
+  :implemented: True
+  :name: BEL
+  :summary: BEL
+  :description: |-
+    Bell (Ctrl-G).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-G
+    :control_set: C
+    :sequence:
+    - 7
+BS:
+  :implemented: True
+  :name: BS
+  :summary: BS
+  :description: |-
+    Backspace (Ctrl-H).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-H
+    :control_set: C
+    :sequence:
+    - 8
+CR:
+  :implemented: True
+  :name: CR
+  :summary: CR
+  :description: |-
+    Carriage Return (Ctrl-M).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-M
+    :control_set: C
+    :sequence:
+    - 13
+ENQ:
+  :implemented: False
+  :name: ENQ
+  :summary: ENQ
+  :description: |-
+    Return Terminal Status (Ctrl-E).  Default response is an empty
+    string, but may be overridden by a resource answerbackString.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-E
+    :control_set: C
+    :sequence:
+    - 5
+FF:
+  :implemented: False
+  :name: FF
+  :summary: FF
+  :description: |-
+    Form Feed or New Page (NP).  (FF  is Ctrl-L).  FF  is treated
+    the same as LF .
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-L
+    :control_set: C
+    :sequence:
+    - 12
+LF:
+  :implemented: True
+  :name: LF
+  :summary: LF
+  :description: |-
+    Line Feed or New Line (NL).  (LF  is Ctrl-J).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-J
+    :control_set: C
+    :sequence:
+    - 10
+SI:
+  :implemented: False
+  :name: SI
+  :summary: SI
+  :description: |-
+    Shift In (Ctrl-O) -> Switch to Standard Character Set.  This
+    invokes the G0 character set (the default).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-O
+    :control_set: C
+    :sequence:
+    - 15
+SO:
+  :implemented: False
+  :name: SO
+  :summary: SO
+  :description: |-
+    Shift Out (Ctrl-N) -> Switch to Alternate Character Set.  This
+    invokes the G1 character set.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-N
+    :control_set: C
+    :sequence:
+    - 14
+SP:
+  :implemented: False
+  :name: SP
+  :summary: SP
+  :description: |-
+    Space.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Space
+    :control_set: C
+    :sequence:
+    - 32
+TAB:
+  :implemented: False
+  :name: TAB
+  :summary: TAB
+  :description: |-
+    Horizontal Tab (HT) (Ctrl-I).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-I
+    :control_set: C
+    :sequence:
+    - 00
+VT:
+  :implemented: False
+  :name: VT
+  :summary: VT
+  :description: |-
+    Vertical Tab (Ctrl-K).  This is treated the same as LF.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: Ctrl-K
+    :control_set: C
+    :sequence:
+    - 11
+ICH:
+  :implemented: False
+  :name: ICH
+  :summary: Insert Ps (Blank) Character(s) (default = 1)
+  :description: CSI Ps @  Insert Ps (Blank) Character(s) (default = 1) (ICH).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 @
+    :control_set: CSI
+    :sequence:
+    - 64
+CUU:
+  :implemented: True
+  :name: CUU
+  :summary: Cursor Up Ps Times (default = 1)
+  :description: CSI Ps A  Cursor Up Ps Times (default = 1) (CUU).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 A
+    :control_set: CSI
+    :sequence:
+    - 65
+CUD:
+  :implemented: True
+  :name: CUD
+  :summary: Cursor Down Ps Times (default = 1)
+  :description: CSI Ps B  Cursor Down Ps Times (default = 1) (CUD).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 B
+    :control_set: CSI
+    :sequence:
+    - 66
+  - :human: ESC B
+    :control_set: ESC
+    :sequence:
+    - 66
+CUF:
+  :implemented: True
+  :name: CUF
+  :summary: Cursor Forward Ps Times (default = 1)
+  :description: CSI Ps C  Cursor Forward Ps Times (default = 1) (CUF).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 C
+    :control_set: CSI
+    :sequence:
+    - 67
+CUB:
+  :implemented: True
+  :name: CUB
+  :summary: Cursor Backward Ps Times (default = 1)
+  :description: CSI Ps D  Cursor Backward Ps Times (default = 1) (CUB).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 D
+    :control_set: CSI
+    :sequence:
+    - 68
+CNL:
+  :implemented: False
+  :name: CNL
+  :summary: Cursor Next Line Ps Times (default = 1)
+  :description: CSI Ps E  Cursor Next Line Ps Times (default = 1) (CNL).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 E
+    :control_set: CSI
+    :sequence:
+    - 69
+CPL:
+  :implemented: False
+  :name: CPL
+  :summary: Cursor Preceding Line Ps Times (default = 1)
+  :description: CSI Ps F  Cursor Preceding Line Ps Times (default = 1) (CPL).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 F
+    :control_set: CSI
+    :sequence:
+    - 70
+CHA:
+  :implemented: True
+  :name: CHA
+  :summary: Cursor Character Absolute  [column] (default = [row,1])
+  :description: CSI Ps G  Cursor Character Absolute  [column] (default = [row,1])
+    (CHA).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 G
+    :control_set: CSI
+    :sequence:
+    - 71
+CUP:
+  :implemented: True
+  :name: CUP
+  :summary: Cursor Position
+  :description: |-
+    CSI Ps ; Ps H
+    Cursor Position [row;column] (default = [1,1]) (CUP).
+  :params_num: 2
+  :params_defaults: [1, 1]
+  :representations:
+  - :human: CSI P2 H
+    :control_set: CSI
+    :sequence:
+    - 72
+CHT:
+  :implemented: False
+  :name: CHT
+  :summary: Cursor Forward Tabulation Ps tab stops (default = 1)
+  :description: CSI Ps I  Cursor Forward Tabulation Ps tab stops (default = 1) (CHT).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 I
+    :control_set: CSI
+    :sequence:
+    - 73
+ED:
+  :implemented: True
+  :name: ED
+  :summary: Erase in Display
+  :description: |-
+    CSI Ps J  Erase in Display (ED).
+      Ps = 0  -> Erase Below (default).
+      Ps = 1  -> Erase Above.
+      Ps = 2  -> Erase All.
+      Ps = 3  -> Erase Saved Lines (xterm).
+
+    From Ecma-048:
+    If the DEVICE COMPONENT SELECT MODE (DCSM) is set to PRESENTATION, ED causes some or
+    all character positions of the active page (the page which contains the active presentation position in the
+    presentation component) to be put into the erased st ate, depending on the parameter values:
+    0 the active presentation position and the character positions up to the end of the page are put into the
+       erased state
+    1 the character positions from the beginning of the page up to and including the active presentation
+       position are put into the erased state
+    2 all character positions of the page are put into the erased state
+  :selections:
+    0: Erase Below (default)
+    1: Erase Above
+    2: Erase All
+    3: Erase Saved Lines (xterm)
+  :params_num: 1
+  :params_defaults: [0]
+  :representations:
+  - :human: CSI P1 J
+    :control_set: CSI
+    :sequence:
+    - 74
+DECSED:
+  :implemented: False
+  :name: DECSED
+  :summary: XXX
+  :description: |-
+    CSI ? Ps J
+    Erase in Display (DECSED).
+      Ps = 0  -> Selective Erase Below (default).
+      Ps = 1  -> Selective Erase Above.
+      Ps = 2  -> Selective Erase All.
+      Ps = 3  -> Selective Erase Saved Lines (xterm).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P1 J
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 74
+EL:
+  :implemented: True
+  :name: EL
+  :summary: Erase in Line
+  :description: |-
+    CSI Ps K  Erase in Line (EL).
+      Ps = 0  -> Erase to Right (default).
+      Ps = 1  -> Erase to Left.
+      Ps = 2  -> Erase All.
+
+    From Ecma-048
+    If the DEVICE COMPONENT SELECT MODE (DCSM) is set to PRESENTATION, EL causes som e or
+    all character positions of the active line (the line which contains the active presentation position in the
+    presentation component) to be put into the erased st ate, depending on the parameter values:
+    0 the active presentation position and the character positions up to the end of the line are put into the
+       erased state
+    1 the character positions from the beginning of the line up to and including the active presentation
+       position are put into the erased state
+    2 all character positions of the lineare put into the erased state
+  :selections:
+    0: Erase to Right (default)
+    1: Erase to Left
+    2: Erase All
+  :params_num: 1
+  :params_defaults: [0]
+  :representations:
+  - :human: CSI P1 K
+    :control_set: CSI
+    :sequence:
+    - 75
+DECSEL:
+  :implemented: False
+  :name: DECSEL
+  :summary: XXX
+  :description: |-
+    CSI ? Ps K
+    Erase in Line (DECSEL).
+      Ps = 0  -> Selective Erase to Right (default).
+      Ps = 1  -> Selective Erase to Left.
+      Ps = 2  -> Selective Erase All.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P1 K
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 75
+IL:
+  :implemented: True
+  :name: IL
+  :summary: Insert Ps Line(s) (default = 1)
+  :description: |-
+    CSI Ps L  Insert Ps Line(s) (default = 1) (IL).
+
+    From Ecma-048:
+    If the DEVICE COMPONENT SELECT MODE (DCSM) is set to PRESENTATION, IL is used to
+    prepare the insertion of n lines, by putting into the erased st ate in the presentation component the active
+    line (the line that contains the active presentation position) and, depending on the setting of the LINE
+    EDITING MODE (VEM), the n-1 preceding or following lines, where n equals the value of Pn. The
+    previous contents of the active line and of adjacent lines are shifted away from the active line. The
+    contents of n lines at the other end of the shi fted part are rem oved. The active presentation position is
+    moved to the line home position in the active line. The line home position is established by the
+    parameter value of SET LINE HOME (SLH).
+    The extent of the shifted part is established by SELECT EDITING EXTENT (SEE).
+    Any occurrences of the start or end of a selected area, the start or nd of a qualified area, or a tabulation
+    stop in the shifted part, are also shifted.
+    If the TABULATION STOP MODE (TSM ) is set to SINGLE, character tabulation stops are cleared in
+    the lines that are put in to the erased state.
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 L
+    :control_set: CSI
+    :sequence:
+    - 76
+DL:
+  :implemented: True
+  :name: DL
+  :summary: Delete Ps Line(s)
+  :description: |-
+    CSI Ps M  Delete Ps Line(s) (default = 1) (DL).
+
+    From Ecma-048:
+    If the DEVICE COMPONENT SELECT MODE (DCSM) is set to PRESENTATION, DL causes the
+    contents of the active line (the line that contains the active presentation position) and, depending on the
+    setting of the LINE EDITING MODE (VEM), the contents of the n-1 preceding or following lines to be
+    removed from the presentation component, where n equals the value of Pn. The resulting gap is closed
+    by shifting the contents of a number of adjacent lines towa rds the active line. At the other end of the
+    shifted part, n lines are put into the erased state.
+    The active presentation position is moved to the line home position in the active line. The line home
+    position is established by the parameter value of SET LINE HOME (SLH). If the TABULATION STOP
+    MODE (TSM ) is set to SINGLE, character tabulation stops are cleared in the lines that are put into the
+    erased state.
+    The extent of the shifted part is established by SELECT EDITING EXTENT (SEE).
+    Any occurrences of the start or end of a selected area, the start or nd of a qualified area, or a tabulation
+    stop in the shifted part, are also shifted.
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 M
+    :control_set: CSI
+    :sequence:
+    - 77
+DCH:
+  :implemented: False
+  :name: DCH
+  :summary: Delete Ps Character(s) (default = 1)
+  :description: CSI Ps P  Delete Ps Character(s) (default = 1) (DCH).
+  :params_num: 1
+  :params_defaults: [1]
+  :representations:
+  - :human: CSI P1 P
+    :control_set: CSI
+    :sequence:
+    - 80
+SU:
+  :implemented: False
+  :name: SU
+  :summary: Scroll up Ps lines (default = 1)
+  :description: CSI Ps S  Scroll up Ps lines (default = 1) (SU).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 S
+    :control_set: CSI
+    :sequence:
+    - 83
+SD:
+  :implemented: False
+  :name: SD
+  :summary: Scroll down Ps lines (default = 1)
+  :description: CSI Ps T  Scroll down Ps lines (default = 1) (SD).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 T
+    :control_set: CSI
+    :sequence:
+    - 84
+XMT:
+  :implemented: False
+  :name: XMT
+  :summary: Ps T
+  :description: |-
+    CSI Ps ; Ps ; Ps ; Ps ; Ps T
+    Initiate highlight mouse tracking.  Parameters are
+    [func;startx;starty;firstrow;lastrow].  See the section Mouse
+    Tracking.
+  :params_num: 5
+  :params_defaults: []
+  :representations:
+  - :human: CSI P5 T
+    :control_set: CSI
+    :sequence:
+    - 84
+XTITLE:
+  :implemented: False
+  :name: XTITLE
+  :summary: Ps T
+  :description: |-
+    CSI > Ps; Ps T
+    Reset one or more features of the title modes to the default
+    value.  Normally, "reset" disables the feature.  It is possi-
+    ble to disable the ability to reset features by compiling a
+    different default for the title modes into xterm.
+      Ps = 0  -> Do not set window/icon labels using hexadecimal.
+      Ps = 1  -> Do not query window/icon labels using hexadeci-
+    mal.
+      Ps = 2  -> Do not set window/icon labels using UTF-8.
+      Ps = 3  -> Do not query window/icon labels using UTF-8.
+    (See discussion of "Title Modes").
+  :params_num: 2
+  :params_defaults: []
+  :representations:
+  - :human: CSI > P2 T
+    :control_set: CSI
+    :sequence:
+    - 62
+    - 84
+ECH:
+  :implemented: False
+  :name: ECH
+  :summary: Erase Ps Character(s) (default = 1)
+  :description: CSI Ps X  Erase Ps Character(s) (default = 1) (ECH).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 X
+    :control_set: CSI
+    :sequence:
+    - 88
+CBT:
+  :implemented: False
+  :name: CBT
+  :summary: Cursor Backward Tabulation Ps tab stops (default = 1)
+  :description: CSI Ps Z  Cursor Backward Tabulation Ps tab stops (default = 1) (CBT).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 Z
+    :control_set: CSI
+    :sequence:
+    - 90
+HPA:
+  :implemented: False
+  :name: HPA
+  :summary: Character Position Absolute  [column]
+  :description: |-
+    CSI Pm `  Character Position Absolute  [column] (default = [row,1])
+    (HPA).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 `
+    :control_set: CSI
+    :sequence:
+    - 96
+HPR:
+  :implemented: False
+  :name: HPR
+  :summary: Character Position Relative  [columns]
+  :description: |-
+    CSI Pm a  Character Position Relative  [columns] (default = [row,col+1])
+    (HPR).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 a
+    :control_set: CSI
+    :sequence:
+    - 97
+REP:
+  :implemented: False
+  :name: REP
+  :summary: Repeat the preceding graphic character Ps times
+  :description: CSI Ps b  Repeat the preceding graphic character Ps times (REP).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 b
+    :control_set: CSI
+    :sequence:
+    - 98
+DA1:
+  :implemented: False
+  :name: DA1
+  :summary: Send Device Attributes
+  :description: |-
+    CSI Ps c  Send Device Attributes.
+      Ps = 0  or omitted -> request attributes from terminal.  The
+    response depends on the decTerminalID resource setting.
+      -> CSI ? 1 ; 2 c  ("VT100 with Advanced Video Option")
+      -> CSI ? 1 ; 0 c  ("VT101 with No Options")
+      -> CSI ? 6 c  ("VT102")
+      -> CSI ? 6 2 ; Psc  ("VT220")
+      -> CSI ? 6 3 ; Psc  ("VT320")
+      -> CSI ? 6 4 ; Psc  ("VT420")
+    The VT100-style response parameters do not mean anything by
+    themselves.  VT220 (and higher) parameters do, telling the
+    host what features the terminal supports:
+      Ps = 1  -> 132-columns.
+      Ps = 2  -> Printer.
+      Ps = 3  -> ReGIS graphics.
+      Ps = 4  -> Sixel graphics.
+      Ps = 6  -> Selective erase.
+      Ps = 8  -> User-defined keys.
+      Ps = 9  -> National Replacement Character sets.
+      Ps = 1 5  -> Technical characters.
+      Ps = 1 8  -> User windows.
+      Ps = 2 1  -> Horizontal scrolling.
+      Ps = 2 2  -> ANSI color, e.g., VT525.
+      Ps = 2 9  -> ANSI text locator (i.e., DEC Locator mode).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 c
+    :control_set: CSI
+    :sequence:
+    - 99
+DA2:
+  :implemented: False
+  :name: DA2
+  :summary: XXX
+  :description: |-
+    CSI > Ps c
+    Send Device Attributes.
+      Ps = 0  or omitted -> request the terminal's identification
+    code.  The response depends on the decTerminalID resource set-
+    ting.  It should apply only to VT220 and up, but xterm extends
+    this to VT100.
+      -> CSI  > Pp ; Pv ; Pc c
+    where Pp denotes the terminal type
+      Pp = 0  -> "VT100".
+      Pp = 1  -> "VT220".
+      Pp = 2  -> "VT240".
+      Pp = 1 8 -> "VT330".
+      Pp = 1 9 -> "VT340".
+      Pp = 2 4 -> "VT320".
+      Pp = 4 1 -> "VT420".
+      Pp = 6 1 -> "VT510".
+      Pp = 6 4 -> "VT520".
+      Pp = 6 5 -> "VT525".
+    and Pv is the firmware version (for xterm, this was originally
+    the XFree86 patch number, starting with 95).  In a DEC termi-
+    nal, Pc indicates the ROM cartridge registration number and is
+    always zero.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI > P1 c
+    :control_set: CSI
+    :sequence:
+    - 62
+    - 99
+VPA:
+  :implemented: False
+  :name: VPA
+  :summary: Line Position Absolute  [row] (default = [1,column])
+  :description: CSI Pm d  Line Position Absolute  [row] (default = [1,column]) (VPA).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 d
+    :control_set: CSI
+    :sequence:
+    - 100
+VPR:
+  :implemented: False
+  :name: VPR
+  :summary: Line Position Relative  [rows]
+  :description: |-
+    CSI Pm e  Line Position Relative  [rows] (default = [row+1,column])
+    (VPR).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 e
+    :control_set: CSI
+    :sequence:
+    - 101
+HVP:
+  :implemented: False
+  :name: HVP
+  :summary: XXX
+  :description: |-
+    CSI Ps ; Ps f
+    Horizontal and Vertical Position [row;column] (default = [1,1]) (HVP).
+  :params_num: 2
+  :params_defaults: []
+  :representations:
+  - :human: CSI P2 f
+    :control_set: CSI
+    :sequence:
+    - 102
+TBC:
+  :implemented: False
+  :name: TBC
+  :summary: Tab Clear
+  :description: |-
+    CSI Ps g  Tab Clear (TBC).
+      Ps = 0  -> Clear Current Column (default).
+      Ps = 3  -> Clear All.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 g
+    :control_set: CSI
+    :sequence:
+    - 103
+SM:
+  :implemented: True
+  :name: SM
+  :summary: Set Mode
+  :description: |-
+    CSI Pm h  Set Mode (SM).
+      Ps = 2  -> Keyboard Action Mode (AM).
+      Ps = 4  -> Insert Mode (IRM).
+      Ps = 1 2  -> Send/receive (SRM).
+      Ps = 2 0  -> Automatic Newline (LNM).
+  :selections:
+    2: Keyboard Action Mode (AM)
+    4: Insert Mode (IRM)
+    12: Send/receive (SRM)
+    20: Automatic Newline (LNM)
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P+ h
+    :control_set: CSI
+    :sequence:
+    - 104
+DECSET:
+  :implemented: True
+  :name: DECSET
+  :summary: DEC Private Mode Set
+  :description: |-
+    CSI ? Pm h
+    DEC Private Mode Set (DECSET).
+      Ps = 1  -> Application Cursor Keys (DECCKM).
+      Ps = 2  -> Designate USASCII for character sets G0-G3
+    (DECANM), and set VT100 mode.
+      Ps = 3  -> 132 Column Mode (DECCOLM).
+      Ps = 4  -> Smooth (Slow) Scroll (DECSCLM).
+      Ps = 5  -> Reverse Video (DECSCNM).
+      Ps = 6  -> Origin Mode (DECOM).
+      Ps = 7  -> Wraparound Mode (DECAWM).
+      Ps = 8  -> Auto-repeat Keys (DECARM).
+      Ps = 9  -> Send Mouse X & Y on button press.  See the sec-
+    tion Mouse Tracking.  This is the X10 xterm mouse protocol.
+      Ps = 1 0  -> Show toolbar (rxvt).
+      Ps = 1 2  -> Start Blinking Cursor (AT&T 610).
+      Ps = 1 3  -> Start Blinking Cursor (set only via resource or
+    menu).
+      Ps = 1 4  -> Enable XOR of Blinking Cursor control sequence
+    and menu.
+      Ps = 1 8  -> Print form feed (DECPFF).
+      Ps = 1 9  -> Set print extent to full screen (DECPEX).
+      Ps = 2 5  -> Show Cursor (DECTCEM).
+      Ps = 3 0  -> Show scrollbar (rxvt).
+      Ps = 3 5  -> Enable font-shifting functions (rxvt).
+      Ps = 3 8  -> Enter Tektronix Mode (DECTEK).
+      Ps = 4 0  -> Allow 80 -> 132 Mode.
+      Ps = 4 1  -> more(1) fix (see curses(3) resource).
+      Ps = 4 2  -> Enable National Replacement Character sets
+    (DECNRCM).
+      Ps = 4 4  -> Turn On Margin Bell.
+      Ps = 4 5  -> Reverse-wraparound Mode.
+      Ps = 4 6  -> Start Logging.  This is normally disabled by a
+    compile-time option.
+      Ps = 4 7  -> Use Alternate Screen Buffer.  (This may be dis-
+    abled by the titeInhibit resource).
+      Ps = 6 6  -> Application keypad (DECNKM).
+      Ps = 6 7  -> Backarrow key sends backspace (DECBKM).
+      Ps = 6 9  -> Enable left and right margin mode (DECLRMM),
+    VT420 and up.
+      Ps = 9 5  -> Do not clear screen when DECCOLM is set/reset
+    (DECNCSM), VT510 and up.
+      Ps = 1 0 0 0  -> Send Mouse X & Y on button press and
+    release.  See the section Mouse Tracking.  This is the X11
+    xterm mouse protocol.
+      Ps = 1 0 0 1  -> Use Hilite Mouse Tracking.
+      Ps = 1 0 0 2  -> Use Cell Motion Mouse Tracking.
+      Ps = 1 0 0 3  -> Use All Motion Mouse Tracking.
+      Ps = 1 0 0 4  -> Send FocusIn/FocusOut events.
+      Ps = 1 0 0 5  -> Enable UTF-8 Mouse Mode.
+      Ps = 1 0 0 6  -> Enable SGR Mouse Mode.
+      Ps = 1 0 0 7  -> Enable Alternate Scroll Mode, i.e., the
+    alternateScroll resource.
+      Ps = 1 0 1 0  -> Scroll to bottom on tty output (rxvt).
+      Ps = 1 0 1 1  -> Scroll to bottom on key press (rxvt).
+      Ps = 1 0 1 5  -> Enable urxvt Mouse Mode.
+      Ps = 1 0 3 4  -> Interpret "meta" key, sets eighth bit.
+    (enables the eightBitInput resource).
+      Ps = 1 0 3 5  -> Enable special modifiers for Alt and Num-
+    Lock keys.  (This enables the numLock resource).
+      Ps = 1 0 3 6  -> Send ESC   when Meta modifies a key.  (This
+    enables the metaSendsEscape resource).
+      Ps = 1 0 3 7  -> Send DEL from the editing-keypad Delete
+    key.
+      Ps = 1 0 3 9  -> Send ESC  when Alt modifies a key.  (This
+    enables the altSendsEscape resource).
+      Ps = 1 0 4 0  -> Keep selection even if not highlighted.
+    (This enables the keepSelection resource).
+      Ps = 1 0 4 1  -> Use the CLIPBOARD selection.  (This enables
+    the selectToClipboard resource).
+      Ps = 1 0 4 2  -> Enable Urgency window manager hint when
+    Control-G is received.  (This enables the bellIsUrgent
+    resource).
+      Ps = 1 0 4 3  -> Enable raising of the window when Control-G
+    is received.  (enables the popOnBell resource).
+      Ps = 1 0 4 4  -> Reuse the most recent data copied to CLIP-
+    BOARD.  (This enables the keepClipboard resource).
+      Ps = 1 0 4 6  -> Enable switching to/from Alternate Screen
+    Buffer.  This works for terminfo-based systems, updating the
+    titeInhibit resource.
+      Ps = 1 0 4 7  -> Use Alternate Screen Buffer.  (This may be
+    disabled by the titeInhibit resource).
+      Ps = 1 0 4 8  -> Save cursor as in DECSC.  (This may be dis-
+    abled by the titeInhibit resource).
+      Ps = 1 0 4 9  -> Save cursor as in DECSC and use Alternate
+    Screen Buffer, clearing it first.  (This may be disabled by
+    the titeInhibit resource).  This combines the effects of the 1
+    0 4 7  and 1 0 4 8  modes.  Use this with terminfo-based
+    applications rather than the 4 7  mode.
+      Ps = 1 0 5 0  -> Set terminfo/termcap function-key mode.
+      Ps = 1 0 5 1  -> Set Sun function-key mode.
+      Ps = 1 0 5 2  -> Set HP function-key mode.
+      Ps = 1 0 5 3  -> Set SCO function-key mode.
+      Ps = 1 0 6 0  -> Set legacy keyboard emulation (i.e, X11R6).
+      Ps = 1 0 6 1  -> Set VT220 keyboard emulation.
+      Ps = 2 0 0 4  -> Set bracketed paste mode.
+  :selections:
+      1: Application Cursor Keys (DECCKM)
+      2: Designate USASCII for character sets G0-G3 (DECANM), and set VT100 mode
+      3: 132 Column Mode (DECCOLM)
+      4: Smooth (Slow) Scroll (DECSCLM)
+      5: Reverse Video (DECSCNM)
+      6: Origin Mode (DECOM)
+      7: Wraparound Mode (DECAWM)
+      8: Auto-repeat Keys (DECARM)
+      9: Send Mouse X & Y on button press.  See the section Mouse Tracking.  This is the X10 xterm mouse protocol
+      10: Show toolbar (rxvt)
+      12: Start Blinking Cursor (AT&T 610)
+      13: Start Blinking Cursor (set only via resource or menu)
+      14: Enable XOR of Blinking Cursor control sequence and menu
+      18: Print form feed (DECPFF)
+      19: Set print extent to full screen (DECPEX)
+      25: Show Cursor (DECTCEM)
+      30: Show scrollbar (rxvt)
+      35: Enable font-shifting functions (rxvt)
+      38: Enter Tektronix Mode (DECTEK)
+      40: Allow 80 -> 132 Mode
+      41: more(1) fix (see curses(3) resource)
+      42: Enable National Replacement Character sets (DECNRCM)
+      44: Turn On Margin Bell
+      45: Reverse-wraparound Mode
+      46: Start Logging.  This is normally disabled by a compile-time option
+      47: Use Alternate Screen Buffer.  (This may be disabled by the titeInhibit resource)
+      66: Application keypad (DECNKM)
+      67: Backarrow key sends backspace (DECBKM)
+      69: Enable left and right margin mode (DECLRMM), VT420 and up
+      95: Do not clear screen when DECCOLM is set/reset (DECNCSM), VT510 and up
+      1000: Send Mouse X & Y on button press and release.  See the section Mouse Tracking.  This is the X11 xterm mouse protocol
+      1001: Use Hilite Mouse Tracking
+      1002: Use Cell Motion Mouse Tracking
+      1003: Use All Motion Mouse Tracking
+      1004: Send FocusIn/FocusOut events
+      1005: Enable UTF-8 Mouse Mode
+      1006: Enable SGR Mouse Mode
+      1007: Enable Alternate Scroll Mode, i.e., the alternateScroll resource
+      1010: Scroll to bottom on tty output (rxvt)
+      1011: Scroll to bottom on key press (rxvt)
+      1015: Enable urxvt Mouse Mode
+      1034: Interpret "meta" key, sets eighth bit. (enables the eightBitInput resource)
+      1035: Enable special modifiers for Alt and NumLock keys.  (This enables the numLock resource)
+      1036: Send ESC   when Meta modifies a key.  (This enables the metaSendsEscape resource)
+      1037: Send DEL from the editing-keypad Delete key
+      1039: Send ESC  when Alt modifies a key.  (This enables the altSendsEscape resource)
+      1040: Keep selection even if not highlighted. (This enables the keepSelection resource)
+      1041: Use the CLIPBOARD selection.  (This enables the selectToClipboard resource)
+      1042: Enable Urgency window manager hint when Control-G is received.  (This enables the bellIsUrgent resource)
+      1043: Enable raising of the window when Control-G is received.  (enables the popOnBell resource)
+      1044: Reuse the most recent data copied to CLIPBOARD.  (This enables the keepClipboard resource)
+      1046: Enable switching to/from Alternate Screen Buffer.  This works for terminfo-based systems, updating the titeInhibit resource
+      1047: Use Alternate Screen Buffer.  (This may be disabled by the titeInhibit resource)
+      1048: Save cursor as in DECSC.  (This may be disabled by the titeInhibit resource)
+      1049: Save cursor as in DECSC and use Alternate Screen Buffer, clearing it first.  (This may be disabled by the titeInhibit resource).  This combines the effects of the 1 0 4 7  and 1 0 4 8  modes.  Use this with terminfo-based applications rather than the 4 7  mode
+      1050: Set terminfo/termcap function-key mode
+      1051: Set Sun function-key mode
+      1052: Set HP function-key mode
+      1053: Set SCO function-key mode
+      1060: Set legacy keyboard emulation (i.e, X11R6)
+      1061: Set VT220 keyboard emulation
+      2004: Set bracketed paste mode
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P1 h
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 104
+MC:
+  :implemented: False
+  :name: MC
+  :summary: Media Copy
+  :description: |-
+    CSI Pm i  Media Copy (MC).
+      Ps = 0  -> Print screen (default).
+      Ps = 4  -> Turn off printer controller mode.
+      Ps = 5  -> Turn on printer controller mode.
+      Ps = 1  0  -> HTML screen dump.
+      Ps = 1  1  -> SVG screen dump.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 i
+    :control_set: CSI
+    :sequence:
+    - 105
+XMC-DEC:
+  :implemented: False
+  :name: XMC-DEC
+  :summary: XXX
+  :description: |-
+    CSI ? Pm i
+    Media Copy.
+      Ps = 1  -> Print line containing cursor.
+      Ps = 4  -> Turn off autoprint mode.
+      Ps = 5  -> Turn on autoprint mode.
+      Ps = 1  0  -> Print composed display, ignores DECPEX.
+      Ps = 1  1  -> Print all pages.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P1 i
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 105
+RM:
+  :implemented: True
+  :name: RM
+  :summary: Reset Mode
+  :description: |-
+    CSI Pm l  Reset Mode (RM).
+      Ps = 2  -> Keyboard Action Mode (AM).
+      Ps = 4  -> Replace Mode (IRM).
+      Ps = 1 2  -> Send/receive (SRM).
+      Ps = 2 0  -> Normal Linefeed (LNM).
+  :selections:
+      2: Keyboard Action Mode (AM)
+      4: Replace Mode (IRM)
+      12: Send/receive (SRM)
+      20: Normal Linefeed (LNM)
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 l
+    :control_set: CSI
+    :sequence:
+    - 108
+DECRST:
+  :implemented: True
+  :name: DECRST
+  :summary: DEC Private Mode Reset (DECRST).
+  :description: |-
+    CSI ? Pm l
+    DEC Private Mode Reset (DECRST).
+      Ps = 1  -> Normal Cursor Keys (DECCKM).
+      Ps = 2  -> Designate VT52 mode (DECANM).
+      Ps = 3  -> 80 Column Mode (DECCOLM).
+      Ps = 4  -> Jump (Fast) Scroll (DECSCLM).
+      Ps = 5  -> Normal Video (DECSCNM).
+      Ps = 6  -> Normal Cursor Mode (DECOM).
+      Ps = 7  -> No Wraparound Mode (DECAWM).
+      Ps = 8  -> No Auto-repeat Keys (DECARM).
+      Ps = 9  -> Don't send Mouse X & Y on button press.
+      Ps = 1 0  -> Hide toolbar (rxvt).
+      Ps = 1 2  -> Stop Blinking Cursor (AT&T 610).
+      Ps = 1 3  -> Disable Blinking Cursor (reset only via
+    resource or menu).
+      Ps = 1 4  -> Disable XOR of Blinking Cursor control sequence
+    and menu.
+      Ps = 1 8  -> Don't print form feed (DECPFF).
+      Ps = 1 9  -> Limit print to scrolling region (DECPEX).
+      Ps = 2 5  -> Hide Cursor (DECTCEM).
+      Ps = 3 0  -> Don't show scrollbar (rxvt).
+      Ps = 3 5  -> Disable font-shifting functions (rxvt).
+      Ps = 4 0  -> Disallow 80 -> 132 Mode.
+      Ps = 4 1  -> No more(1) fix (see curses(3) resource).
+      Ps = 4 2  -> Disable National Replacement Character sets
+    (DECNRCM).
+      Ps = 4 4  -> Turn Off Margin Bell.
+      Ps = 4 5  -> No Reverse-wraparound Mode.
+      Ps = 4 6  -> Stop Logging.  (This is normally disabled by a
+    compile-time option).
+      Ps = 4 7  -> Use Normal Screen Buffer.
+      Ps = 6 6  -> Numeric keypad (DECNKM).
+      Ps = 6 7  -> Backarrow key sends delete (DECBKM).
+      Ps = 6 9  -> Disable left and right margin mode (DECLRMM),
+    VT420 and up.
+      Ps = 9 5  -> Clear screen when DECCOLM is set/reset (DEC-
+    NCSM), VT510 and up.
+      Ps = 1 0 0 0  -> Don't send Mouse X & Y on button press and
+    release.  See the section Mouse Tracking.
+      Ps = 1 0 0 1  -> Don't use Hilite Mouse Tracking.
+      Ps = 1 0 0 2  -> Don't use Cell Motion Mouse Tracking.
+      Ps = 1 0 0 3  -> Don't use All Motion Mouse Tracking.
+      Ps = 1 0 0 4  -> Don't send FocusIn/FocusOut events.
+      Ps = 1 0 0 5  -> Disable UTF-8 Mouse Mode.
+      Ps = 1 0 0 6  -> Disable SGR Mouse Mode.
+      Ps = 1 0 0 7  -> Disable Alternate Scroll Mode, i.e., the
+    alternateScroll resource.
+      Ps = 1 0 1 0  -> Don't scroll to bottom on tty output
+    (rxvt).
+      Ps = 1 0 1 1  -> Don't scroll to bottom on key press (rxvt).
+      Ps = 1 0 1 5  -> Disable urxvt Mouse Mode.
+      Ps = 1 0 3 4  -> Don't interpret "meta" key.  (This disables
+    the eightBitInput resource).
+      Ps = 1 0 3 5  -> Disable special modifiers for Alt and Num-
+    Lock keys.  (This disables the numLock resource).
+      Ps = 1 0 3 6  -> Don't send ESC  when Meta modifies a key.
+    (This disables the metaSendsEscape resource).
+      Ps = 1 0 3 7  -> Send VT220 Remove from the editing-keypad
+    Delete key.
+      Ps = 1 0 3 9  -> Don't send ESC  when Alt modifies a key.
+    (This disables the altSendsEscape resource).
+      Ps = 1 0 4 0  -> Do not keep selection when not highlighted.
+    (This disables the keepSelection resource).
+      Ps = 1 0 4 1  -> Use the PRIMARY selection.  (This disables
+    the selectToClipboard resource).
+      Ps = 1 0 4 2  -> Disable Urgency window manager hint when
+    Control-G is received.  (This disables the bellIsUrgent
+    resource).
+      Ps = 1 0 4 3  -> Disable raising of the window when Control-
+    G is received.  (This disables the popOnBell resource).
+      Ps = 1 0 4 6  -> Disable switching to/from Alternate Screen
+    Buffer.  This works for terminfo-based systems, updating the
+    titeInhibit resource.  If currently using the Alternate Screen
+    Buffer, xterm switches to the Normal Screen Buffer.
+      Ps = 1 0 4 7  -> Use Normal Screen Buffer, clearing screen
+    first if in the Alternate Screen Buffer.  (This may be dis-
+    abled by the titeInhibit resource).
+      Ps = 1 0 4 8  -> Restore cursor as in DECRC.  (This may be
+    disabled by the titeInhibit resource).
+      Ps = 1 0 4 9  -> Use Normal Screen Buffer and restore cursor
+    as in DECRC.  (This may be disabled by the titeInhibit
+    resource).  This combines the effects of the 1 0 4 7  and 1 0
+    4 8  modes.  Use this with terminfo-based applications rather
+    than the 4 7  mode.
+      Ps = 1 0 5 0  -> Reset terminfo/termcap function-key mode.
+      Ps = 1 0 5 1  -> Reset Sun function-key mode.
+      Ps = 1 0 5 2  -> Reset HP function-key mode.
+      Ps = 1 0 5 3  -> Reset SCO function-key mode.
+      Ps = 1 0 6 0  -> Reset legacy keyboard emulation (i.e,
+    X11R6).
+      Ps = 1 0 6 1  -> Reset keyboard emulation to Sun/PC style.
+      Ps = 2 0 0 4  -> Reset bracketed paste mode.
+  :selections:
+      1: Normal Cursor Keys (DECCKM)
+      2: Designate VT52 mode (DECANM)
+      3: 80 Column Mode (DECCOLM)
+      4: Jump (Fast) Scroll (DECSCLM)
+      5: Normal Video (DECSCNM)
+      6: Normal Cursor Mode (DECOM)
+      7: No Wraparound Mode (DECAWM)
+      8: No Auto-repeat Keys (DECARM)
+      9: Don't send Mouse X & Y on button press
+      10: Hide toolbar (rxvt)
+      12: Stop Blinking Cursor (AT&T 610)
+      13: Disable Blinking Cursor (reset only via resource or menu)
+      14: Disable XOR of Blinking Cursor control sequence and menu
+      18: Don't print form feed (DECPFF)
+      19: Limit print to scrolling region (DECPEX)
+      25: Hide Cursor (DECTCEM)
+      30: Don't show scrollbar (rxvt)
+      35: Disable font-shifting functions (rxvt)
+      40: Disallow 80 -> 132 Mode
+      41: No more(1) fix (see curses(3) resource)
+      42: Disable National Replacement Character sets (DECNRCM)
+      44: Turn Off Margin Bell
+      45: No Reverse-wraparound Mode
+      46: Stop Logging.  (This is normally disabled by a compile-time option)
+      47: Use Normal Screen Buffer
+      66: Numeric keypad (DECNKM)
+      67: Backarrow key sends delete (DECBKM)
+      69: Disable left and right margin mode (DECLRMM), VT420 and up
+      95: Clear screen when DECCOLM is set/reset (DEC- NCSM), VT510 and up
+      1000: Don't send Mouse X & Y on button press and release.  See the section Mouse Tracking
+      1001: Don't use Hilite Mouse Tracking
+      1002: Don't use Cell Motion Mouse Tracking
+      1003: Don't use All Motion Mouse Tracking
+      1004: Don't send FocusIn/FocusOut events
+      1005: Disable UTF-8 Mouse Mode
+      1006: Disable SGR Mouse Mode
+      1007: Disable Alternate Scroll Mode, i.e., the alternateScroll resource
+      1010: Don't scroll to bottom on tty output (rxvt)
+      1011: Don't scroll to bottom on key press (rxvt)
+      1015: Disable urxvt Mouse Mode
+      1034: Don't interpret "meta" key.  (This disables the eightBitInput resource)
+      1035: Disable special modifiers for Alt and Num- Lock keys.  (This disables the numLock resource)
+      1036: Don't send ESC  when Meta modifies a key. (This disables the metaSendsEscape resource)
+      1037: Send VT220 Remove from the editing-keypad Delete key
+      1039: Don't send ESC  when Alt modifies a key. (This disables the altSendsEscape resource)
+      1040: Do not keep selection when not highlighted. (This disables the keepSelection resource)
+      1041: Use the PRIMARY selection.  (This disables the selectToClipboard resource)
+      1042: Disable Urgency window manager hint when Control-G is received.  (This disables the bellIsUrgent resource)
+      1043: Disable raising of the window when Control- G is received.  (This disables the popOnBell resource)
+      1046: Disable switching to/from Alternate Screen Buffer.  This works for terminfo-based systems, updating the titeInhibit resource.  If currently using the Alternate Screen Buffer, xterm switches to the Normal Screen Buffer
+      1047: Use Normal Screen Buffer, clearing screen first if in the Alternate Screen Buffer.  (This may be dis- abled by the titeInhibit resource)
+      1048: Restore cursor as in DECRC.  (This may be disabled by the titeInhibit resource)
+      1049: Use Normal Screen Buffer and restore cursor as in DECRC.  (This may be disabled by the titeInhibit resource).  This combines the effects of the 1 0 4 7  and 1 0 4 8  modes.  Use this with terminfo-based applications rather than the 4 7  mode
+      1050: Reset terminfo/termcap function-key mode
+      1051: Reset Sun function-key mode
+      1052: Reset HP function-key mode
+      1053: Reset SCO function-key mode
+      1060: Reset legacy keyboard emulation (i.e, X11R6)
+      1061: Reset keyboard emulation to Sun/PC style
+      2004: Reset bracketed paste mode
+  :params_num: -1
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P1 l
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 108
+SGR:
+  :implemented: True
+  :name: SGR
+  :summary: Character Attributes
+  :description: |
+    CSI Pm m  Character Attributes (SGR).
+      Ps = 0  -> Normal (default).
+      Ps = 1  -> Bold.
+      Ps = 2  -> Faint, decreased intensity (ISO 6429).
+      Ps = 3  -> Italicized (ISO 6429).
+      Ps = 4  -> Underlined.
+      Ps = 5  -> Blink (appears as Bold in X11R6 xterm).
+      Ps = 7  -> Inverse.
+      Ps = 8  -> Invisible, i.e., hidden (VT300).
+      Ps = 9  -> Crossed-out characters (ISO 6429).
+      Ps = 2 1  -> Doubly-underlined (ISO 6429).
+      Ps = 2 2  -> Normal (neither bold nor faint).
+      Ps = 2 3  -> Not italicized (ISO 6429).
+      Ps = 2 4  -> Not underlined.
+      Ps = 2 5  -> Steady (not blinking).
+      Ps = 2 7  -> Positive (not inverse).
+      Ps = 2 8  -> Visible, i.e., not hidden (VT300).
+      Ps = 2 9  -> Not crossed-out (ISO 6429).
+      Ps = 3 0  -> Set foreground color to Black.
+      Ps = 3 1  -> Set foreground color to Red.
+      Ps = 3 2  -> Set foreground color to Green.
+      Ps = 3 3  -> Set foreground color to Yellow.
+      Ps = 3 4  -> Set foreground color to Blue.
+      Ps = 3 5  -> Set foreground color to Magenta.
+      Ps = 3 6  -> Set foreground color to Cyan.
+      Ps = 3 7  -> Set foreground color to White.
+      Ps = 3 9  -> Set foreground color to default (original).
+      Ps = 4 0  -> Set background color to Black.
+      Ps = 4 1  -> Set background color to Red.
+      Ps = 4 2  -> Set background color to Green.
+      Ps = 4 3  -> Set background color to Yellow.
+      Ps = 4 4  -> Set background color to Blue.
+      Ps = 4 5  -> Set background color to Magenta.
+      Ps = 4 6  -> Set background color to Cyan.
+      Ps = 4 7  -> Set background color to White.
+      Ps = 4 9  -> Set background color to default (original).
+
+    If 16-color support is compiled, the following apply.  Assume
+    that xterm's resources are set so that the ISO color codes are
+    the first 8 of a set of 16.  Then the aixterm colors are the
+    bright versions of the ISO colors:
+      Ps = 9 0  -> Set foreground color to Black.
+      Ps = 9 1  -> Set foreground color to Red.
+      Ps = 9 2  -> Set foreground color to Green.
+      Ps = 9 3  -> Set foreground color to Yellow.
+      Ps = 9 4  -> Set foreground color to Blue.
+      Ps = 9 5  -> Set foreground color to Magenta.
+      Ps = 9 6  -> Set foreground color to Cyan.
+      Ps = 9 7  -> Set foreground color to White.
+      Ps = 1 0 0  -> Set background color to Black.
+      Ps = 1 0 1  -> Set background color to Red.
+      Ps = 1 0 2  -> Set background color to Green.
+      Ps = 1 0 3  -> Set background color to Yellow.
+      Ps = 1 0 4  -> Set background color to Blue.
+      Ps = 1 0 5  -> Set background color to Magenta.
+      Ps = 1 0 6  -> Set background color to Cyan.
+      Ps = 1 0 7  -> Set background color to White.
+
+    If xterm is compiled with the 16-color support disabled, it
+    supports the following, from rxvt:
+      Ps = 1 0 0  -> Set foreground and background color to
+    default.
+
+    Xterm maintains a color palette whose entries are identified
+    by an index beginning with zero.  If 88- or 256-color support
+    is compiled, the following apply:
+    o   All parameters are decimal integers.
+    o   RGB values range from zero (0) to 255.
+    o   ISO-8613-6 has been interpreted in more than one way;
+        xterm allows the semicolons separating the subparameters
+        in this control to be replaced by colons (but after the
+        first colon, colons must be used).
+
+    These ISO-8613-6 controls are supported:
+      Pm = 3 8 ; 2 ; Pi; Pr; Pg; Pb -> Set foreground color to the
+    closest match in xterm's palette for the given RGB Pr/Pg/Pb.
+    The color space identifier Pi is ignored.
+      Pm = 3 8 ; 5 ; Ps -> Set foreground color to Ps.
+      Pm = 4 8 ; 2 ; Pi; Pr; Pg; Pb -> Set background color to the
+    closest match in xterm's palette for the given RGB Pr/Pg/Pb.
+    The color space identifier Pi is ignored.
+      Pm = 4 8 ; 5 ; Ps -> Set background color to Ps.
+
+    This variation on ISO-8613-6 is supported for compatibility
+    with KDE konsole:
+      Pm = 3 8 ; 2 ; Pr; Pg; Pb -> Set foreground color to the
+    closest match in xterm's palette for the given RGB Pr/Pg/Pb.
+      Pm = 4 8 ; 2 ; Pr; Pg; Pb -> Set background color to the
+    closest match in xterm's palette for the given RGB Pr/Pg/Pb.
+
+    If xterm is compiled with direct-color support, and the
+    resource directColor is true, then rather than choosing the
+    closest match, xterm asks the X server to directly render a
+    given color.
+  :selections:
+    0: "Normal (default)"
+    1: "Bold"
+    2: "Faint, decreased intensity (ISO 6429)"
+    3: "Italicized (ISO 6429)"
+    4: "Underlined"
+    5: "Blink (appears as Bold in X11R6 xterm)"
+    7: "Inverse"
+    8: "Invisible, i.e., hidden (VT300)"
+    9: "Crossed-out characters (ISO 6429)"
+    21: "Doubly-underlined (ISO 6429)"
+    22: "Normal (neither bold nor faint)"
+    23: "Not italicized (ISO 6429)"
+    24: "Not underlined"
+    25: "Steady (not blinking)"
+    27: "Positive (not inverse)"
+    28: "Visible, i.e., not hidden (VT300)"
+    29: "Not crossed-out (ISO 6429)"
+    30: "Set foreground color to Black"
+    31: "Set foreground color to Red"
+    32: "Set foreground color to Green"
+    33: "Set foreground color to Yellow"
+    34: "Set foreground color to Blue"
+    35: "Set foreground color to Magenta"
+    36: "Set foreground color to Cyan"
+    37: "Set foreground color to White"
+    39: "Set foreground color to default (original)"
+    40: "Set background color to Black"
+    41: "Set background color to Red"
+    42: "Set background color to Green"
+    43: "Set background color to Yellow"
+    44: "Set background color to Blue"
+    45: "Set background color to Magenta"
+    46: "Set background color to Cyan"
+    47: "Set background color to White"
+    49: "Set background color to default (original)"
+    90: "Set foreground color to Black"
+    91: "Set foreground color to Red"
+    92: "Set foreground color to Green"
+    93: "Set foreground color to Yellow"
+    94: "Set foreground color to Blue"
+    95: "Set foreground color to Magenta"
+    96: "Set foreground color to Cyan"
+    97: "Set foreground color to White"
+    100: "Set background color to Black"
+    101: "Set background color to Red"
+    102: "Set background color to Green"
+    103: "Set background color to Yellow"
+    104: "Set background color to Blue"
+    105: "Set background color to Magenta"
+    106: "Set background color to Cyan"
+    107: "Set background color to White"
+  :params_num: -1
+  :params_defaults: [0]
+  :representations:
+  - :human: CSI P6 m
+    :control_set: CSI
+    :sequence:
+    - 109
+XXTERM-RESOURCES:
+  :implemented: False
+  :name: XXTERM-RESOURCES
+  :summary: Ps m
+  :description: |-
+    CSI > Ps; Ps m
+    Set or reset resource-values used by xterm to decide whether
+    to construct escape sequences holding information about the
+    modifiers pressed with a given key.  The first parameter iden-
+    tifies the resource to set/reset.  The second parameter is the
+    value to assign to the resource.  If the second parameter is
+    omitted, the resource is reset to its initial value.
+      Ps = 0  -> modifyKeyboard.
+      Ps = 1  -> modifyCursorKeys.
+      Ps = 2  -> modifyFunctionKeys.
+      Ps = 4  -> modifyOtherKeys.
+    If no parameters are given, all resources are reset to their
+    initial values.
+  :params_num: 2
+  :params_defaults: []
+  :representations:
+  - :human: CSI > P2 m
+    :control_set: CSI
+    :sequence:
+    - 62
+    - 109
+DSR:
+  :implemented: False
+  :name: DSR
+  :summary: Device Status Report
+  :description: |
+    CSI Ps n  Device Status Report (DSR).
+      Ps = 5  -> Status Report.
+    Result ("OK") is CSI 0 n
+      Ps = 6  -> Report Cursor Position (CPR) [row;column].
+    Result is CSI r ; c R
+
+    Note: it is possible for this sequence to be sent by a func-
+    tion key.  For example, with the default keyboard configura-
+    tion the shifted F1 key may send (with shift-, control-, alt-
+    modifiers)
+      CSI 1  ; 2  R , or
+      CSI 1  ; 5  R , or
+      CSI 1  ; 6  R , etc.
+    The second parameter encodes the modifiers; values range from
+    2 to 16.  See the section PC-Style Function Keys for the
+    codes.  The modifyFunctionKeys and modifyKeyboard resources
+    can change the form of the string sent from the modified F1
+    key.
+  :selections:
+    5: Status Report
+    6: Report Cursor Position (CPR) [row;column]
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 n
+    :control_set: CSI
+    :sequence:
+    - 110
+XXTERM-MODIFIERS:
+  :implemented: False
+  :name: XXTERM-MODIFIERS
+  :summary: Ps n
+  :description: |-
+    CSI > Ps n
+    Disable modifiers which may be enabled via the CSI > Ps; Ps m
+    sequence.  This corresponds to a resource value of "-1", which
+    cannot be set with the other sequence.  The parameter identi-
+    fies the resource to be disabled:
+      Ps = 0  -> modifyKeyboard.
+      Ps = 1  -> modifyCursorKeys.
+      Ps = 2  -> modifyFunctionKeys.
+      Ps = 4  -> modifyOtherKeys.
+    If the parameter is omitted, modifyFunctionKeys is disabled.
+    When modifyFunctionKeys is disabled, xterm uses the modifier
+    keys to make an extended sequence of functions rather than
+    adding a parameter to each function key to denote the modi-
+    fiers.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI > P1 n
+    :control_set: CSI
+    :sequence:
+    - 62
+    - 110
+DSR-DEC:
+  :implemented: False
+  :name: DSR-DEC
+  :summary: XXX
+  :description: |-
+    CSI ? Ps n
+    Device Status Report (DSR, DEC-specific).
+      Ps = 6  -> Report Cursor Position (DECXCPR) [row;column] as
+    CSI ? r ; c R (assumes the default page, i.e., "1").
+      Ps = 1 5  -> Report Printer status as CSI ? 1 0 n  (ready).
+    or CSI ? 1 1 n  (not ready).
+      Ps = 2 5  -> Report UDK status as CSI ? 2 0 n  (unlocked) or
+    CSI ? 2 1 n  (locked).
+      Ps = 2 6  -> Report Keyboard status as
+    CSI ? 2 7 ; 1 ; 0 ; 0 n  (North American).
+    The last two parameters apply to VT400 & up, and denote key-
+    board ready and LK01 respectively.
+      Ps = 5 3  -> Report Locator status as CSI ? 5 3 n  Locator
+    available, if compiled-in, or CSI ? 5 0 n  No Locator, if not.
+      Ps = 5 5  -> Report Locator status as CSI ? 5 3 n  Locator
+    available, if compiled-in, or CSI ? 5 0 n  No Locator, if not.
+      Ps = 5 6  -> Report Locator type as CSI ? 5 7 ; 1 n  Mouse,
+    if compiled-in, or CSI ? 5 7 ; 0 n  Cannot identify, if not.
+      Ps = 6 2  -> Report macro space (DECMSR) as CSI Pn *  { .
+      Ps = 6 3  -> Report memory checksum (DECCKSR) as DCS Pt ! x
+    x x x ST .
+        Pt is the request id (from an optional parameter to the
+    request).
+        The x's are hexadecimal digits 0-9 and A-F.
+      Ps = 7 5  -> Report data integrity as CSI ? 7 0 n  (ready,
+    no errors).
+      Ps = 8 5  -> Report multi-session configuration as CSI ? 8 3
+    n  (not configured for multiple-session operation).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P1 n
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 110
+XXTERM-POINTER:
+  :implemented: False
+  :name: XXTERM-POINTER
+  :summary: Ps p
+  :description: |-
+    CSI > Ps p
+    Set resource value pointerMode.  This is used by xterm to
+    decide whether to hide the pointer cursor as the user types.
+    Valid values for the parameter:
+      Ps = 0  -> never hide the pointer.
+      Ps = 1  -> hide if the mouse tracking mode is not enabled.
+      Ps = 2  -> always hide the pointer, except when leaving the
+    window.
+      Ps = 3  -> always hide the pointer, even if leaving/entering
+    the window.  If no parameter is given, xterm uses the default,
+    which is 1 .
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI > P1 p
+    :control_set: CSI
+    :sequence:
+    - 62
+    - 112
+DECSTR:
+  :implemented: False
+  :name: DECSTR
+  :summary: Soft terminal reset
+  :description: CSI ! p   Soft terminal reset (DECSTR).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: CSI ! p
+    :control_set: CSI
+    :sequence:
+    - 33
+    - 112
+DECSCL:
+  :implemented: False
+  :name: DECSCL
+  :summary: XXX
+  :description: |-
+    CSI Ps ; Ps " p
+    Set conformance level (DECSCL).  Valid values for the first
+    parameter:
+      Ps = 6 1  -> VT100.
+      Ps = 6 2  -> VT200.
+      Ps = 6 3  -> VT300.
+    Valid values for the second parameter:
+      Ps = 0  -> 8-bit controls.
+      Ps = 1  -> 7-bit controls (always set for VT100).
+      Ps = 2  -> 8-bit controls.
+  :params_num: 2
+  :params_defaults: []
+  :representations:
+  - :human: CSI P2 "
+    :control_set: CSI
+    :sequence:
+    - 34
+XDECRQM-ANSI:
+  :implemented: False
+  :name: XDECRQM-ANSI
+  :summary: p
+  :description: |-
+    CSI Ps $ p
+    Request ANSI mode (DECRQM).  For VT300 and up, reply is
+      CSI Ps; Pm$ y
+    where Ps is the mode number as in SM/RM, and Pm is the mode
+    value:
+      0 - not recognized
+      1 - set
+      2 - reset
+      3 - permanently set
+      4 - permanently reset
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1$ p
+    :control_set: CSI
+    :sequence:
+    - 112
+XDECRQM-PRIVATE:
+  :implemented: False
+  :name: XDECRQM-PRIVATE
+  :summary: p
+  :description: |-
+    CSI ? Ps$ p (HFD6)
+    Request DEC private mode (DECRQM).  For VT300 and up, reply is
+      CSI ? Ps; Pm$ y
+    where Ps is the mode number as in DECSET/DECSET, Pm is the
+    mode value as in the ANSI DECRQM.
+    Two private modes are read-only (i.e., 1 3  and 1 4 ), pro-
+    vided only for reporting their values using this control
+    sequence.  They correspond to the resources cursorBlink and
+    cursorBlinkXOR.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 80
+DECLL:
+  :implemented: False
+  :name: DECLL
+  :summary: Load LEDs
+  :description: |-
+    CSI Ps q  Load LEDs (DECLL).
+      Ps = 0  -> Clear all LEDS (default).
+      Ps = 1  -> Light Num Lock.
+      Ps = 2  -> Light Caps Lock.
+      Ps = 3  -> Light Scroll Lock.
+      Ps = 2  1  -> Extinguish Num Lock.
+      Ps = 2  2  -> Extinguish Caps Lock.
+      Ps = 2  3  -> Extinguish Scroll Lock.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 q
+    :control_set: CSI
+    :sequence:
+    - 113
+DECSCUSR:
+  :implemented: False
+  :name: DECSCUSR
+  :summary: XXX
+  :description: |-
+    CSI Ps SP q
+    Set cursor style (DECSCUSR, VT520).
+      Ps = 0  -> blinking block.
+      Ps = 1  -> blinking block (default).
+      Ps = 2  -> steady block.
+      Ps = 3  -> blinking underline.
+      Ps = 4  -> steady underline.
+      Ps = 5  -> blinking bar (xterm).
+      Ps = 6  -> steady bar (xterm).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 S
+    :control_set: CSI
+    :sequence:
+    - 83
+DECSCA:
+  :implemented: False
+  :name: DECSCA
+  :summary: XXX
+  :description: |-
+    CSI Ps " q
+    Select character protection attribute (DECSCA).  Valid values
+    for the parameter:
+      Ps = 0  -> DECSED and DECSEL can erase (default).
+      Ps = 1  -> DECSED and DECSEL cannot erase.
+      Ps = 2  -> DECSED and DECSEL can erase.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 "
+    :control_set: CSI
+    :sequence:
+    - 34
+DECSTBM:
+  :implemented: True
+  :name: DECSTBM
+  :summary: Set Scrolling Region
+  :description: |-
+    CSI Ps ; Ps r
+    Set Scrolling Region [top;bottom] (default = full size of win-
+    dow) (DECSTBM).
+  :params_num: -1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P2 r
+    :control_set: CSI
+    :sequence:
+    - 114
+XDECRESTPRIV:
+  :implemented: False
+  :name: XDECRESTPRIV
+  :summary: Pm r
+  :description: |-
+    CSI ? Pm r
+    Restore DEC Private Mode Values.  The value of Ps previously
+    saved is restored.  Ps values are the same as for DECSET.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P1 r
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 114
+DECCARA:
+  :implemented: False
+  :name: DECCARA
+  :summary: XXX
+  :description: |-
+    CSI Pt; Pl; Pb; Pr; Ps$ r
+    Change Attributes in Rectangular Area (DECCARA), VT400 and up.
+      Pt; Pl; Pb; Pr denotes the rectangle.
+      Ps denotes the SGR attributes to change: 0, 1, 4, 5, 7.
+  :params_num: 4
+  :params_defaults: []
+  :representations:
+  - :human: CSI P4 P
+    :control_set: CSI
+    :sequence:
+    - 80
+XCURSAV:
+  :implemented: False
+  :name: XCURSAV
+  :summary: Save cursor, available only when DECLRMM is disabled
+  :description: |-
+    CSI s     Save cursor, available only when DECLRMM is disabled (HFD8) (SCOSC,
+    also ANSI.SYS).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: CSI s
+    :control_set: CSI
+    :sequence:
+    - 115
+DECSLRM:
+  :implemented: False
+  :name: DECSLRM
+  :summary: XXX
+  :description: |-
+    CSI Pl; Pr s
+    Set left and right margins (DECSLRM), available only when
+    DECLRMM is enabled (VT420 and up).
+  :params_num: 2
+  :params_defaults: []
+  :representations:
+  - :human: CSI P2 s
+    :control_set: CSI
+    :sequence:
+    - 115
+XDECPRIV:
+  :implemented: False
+  :name: XDECPRIV
+  :summary: Pm s
+  :description: |-
+    CSI ? Pm s (HFD9)
+    Save DEC Private Mode Values.  Ps values are the same as for
+    DECSET.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI ? P1 s
+    :control_set: CSI
+    :sequence:
+    - 63
+    - 115
+XDTTERM:
+  :implemented: False
+  :name: XDTTERM
+  :summary: XXX
+  :description: |-
+    CSI Ps ; Ps ; Ps t
+    Window manipulation (from dtterm, as well as extensions).
+    These controls may be disabled using the allowWindowOps
+    resource.  Valid values for the first (and any additional
+    parameters) are:
+      Ps = 1  -> De-iconify window.
+      Ps = 2  -> Iconify window.
+      Ps = 3  ;  x ;  y -> Move window to [x, y].
+      Ps = 4  ;  height ;  width -> Resize the xterm window to
+    given height and width in pixels.  Omitted parameters reuse
+    the current height or width.  Zero parameters use the dis-
+    play's height or width.
+      Ps = 5  -> Raise the xterm window to the front of the stack-
+    ing order.
+      Ps = 6  -> Lower the xterm window to the bottom of the
+    stacking order.
+      Ps = 7  -> Refresh the xterm window.
+      Ps = 8  ;  height ;  width -> Resize the text area to given
+    height and width in characters.  Omitted parameters reuse the
+    current height or width.  Zero parameters use the display's
+    height or width.
+      Ps = 9  ;  0  -> Restore maximized window.
+      Ps = 9  ;  1  -> Maximize window (i.e., resize to screen
+    size).
+      Ps = 9  ;  2  -> Maximize window vertically.
+      Ps = 9  ;  3  -> Maximize window horizontally.
+      Ps = 1 0  ;  0  -> Undo full-screen mode.
+      Ps = 1 0  ;  1  -> Change to full-screen.
+      Ps = 1 0  ;  2  -> Toggle full-screen.
+      Ps = 1 1  -> Report xterm window state.  If the xterm window
+    is open (non-iconified), it returns CSI 1 t .  If the xterm
+    window is iconified, it returns CSI 2 t .
+      Ps = 1 3  -> Report xterm window position.
+    Result is CSI 3 ; x ; y t
+      Ps = 1 4  -> Report xterm window in pixels.
+    Result is CSI  4  ;  height ;  width t
+      Ps = 1 8  -> Report the size of the text area in characters.
+    Result is CSI  8  ;  height ;  width t
+      Ps = 1 9  -> Report the size of the screen in characters.
+    Result is CSI  9  ;  height ;  width t
+      Ps = 2 0  -> Report xterm window's icon label.
+    Result is OSC  L  label ST
+      Ps = 2 1  -> Report xterm window's title.
+    Result is OSC  l  label ST
+      Ps = 2 2  ;  0  -> Save xterm icon and window title on
+    stack.
+      Ps = 2 2  ;  1  -> Save xterm icon title on stack.
+      Ps = 2 2  ;  2  -> Save xterm window title on stack.
+      Ps = 2 3  ;  0  -> Restore xterm icon and window title from
+    stack.
+      Ps = 2 3  ;  1  -> Restore xterm icon title from stack.
+      Ps = 2 3  ;  2  -> Restore xterm window title from stack.
+      Ps >= 2 4  -> Resize to Ps lines (DECSLPP).
+  :params_num: 3
+  :params_defaults: []
+  :representations:
+  - :human: CSI P3 t
+    :control_set: CSI
+    :sequence:
+    - 116
+XXTERM-TITLE2:
+  :implemented: False
+  :name: XXTERM-TITLE2
+  :summary: Ps t
+  :description: |-
+    CSI > Ps; Ps t (HFD10)
+    Set one or more features of the title modes.  Each parameter
+    enables a single feature.
+      Ps = 0  -> Set window/icon labels using hexadecimal.
+      Ps = 1  -> Query window/icon labels using hexadecimal.
+      Ps = 2  -> Set window/icon labels using UTF-8.
+      Ps = 3  -> Query window/icon labels using UTF-8.  (See dis-
+    cussion of "Title Modes")
+  :params_num: 2
+  :params_defaults: []
+  :representations:
+  - :human: CSI > P2 t
+    :control_set: CSI
+    :sequence:
+    - 62
+    - 116
+DECSWBV:
+  :implemented: False
+  :name: DECSWBV
+  :summary: XXX
+  :description: |-
+    CSI Ps SP t
+    Set warning-bell volume (DECSWBV, VT520).
+      Ps = 0  or 1  -> off.
+      Ps = 2 , 3  or 4  -> low.
+      Ps = 5 , 6 , 7 , or 8  -> high.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 S
+    :control_set: CSI
+    :sequence:
+    - 83
+DECRARA:
+  :implemented: False
+  :name: DECRARA
+  :summary: XXX
+  :description: |-
+    CSI Pt; Pl; Pb; Pr; Ps$ t
+    Reverse Attributes in Rectangular Area (DECRARA), VT400 and
+    up.
+      Pt; Pl; Pb; Pr denotes the rectangle.
+      Ps denotes the attributes to reverse, i.e.,  1, 4, 5, 7.
+  :params_num: 4
+  :params_defaults: []
+  :representations:
+  - :human: CSI P4 P
+    :control_set: CSI
+    :sequence:
+    - 80
+SCORC:
+  :implemented: False
+  :name: SCORC
+  :summary: Restore cursor
+  :description: CSI u     Restore cursor (SCORC, also ANSI.SYS).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: CSI u
+    :control_set: CSI
+    :sequence:
+    - 117
+DECSMBV:
+  :implemented: False
+  :name: DECSMBV
+  :summary: XXX
+  :description: |-
+    CSI Ps SP u
+    Set margin-bell volume (DECSMBV, VT520).
+      Ps = 1  -> off.
+      Ps = 2 , 3  or 4  -> low.
+      Ps = 0 , 5 , 6 , 7 , or 8  -> high.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 S
+    :control_set: CSI
+    :sequence:
+    - 83
+DECCRA:
+  :implemented: False
+  :name: DECCRA
+  :summary: XXX
+  :description: |-
+    CSI Pt; Pl; Pb; Pr; Pp; Pt; Pl; Pp$ v
+    Copy Rectangular Area (DECCRA, VT400 and up).
+      Pt; Pl; Pb; Pr denotes the rectangle.
+      Pp denotes the source page.
+      Pt; Pl denotes the target location.
+      Pp denotes the target page.
+  :params_num: 7
+  :params_defaults: []
+  :representations:
+  - :human: CSI P7 P
+    :control_set: CSI
+    :sequence:
+    - 80
+DECEFR:
+  :implemented: False
+  :name: DECEFR
+  :summary: XXX
+  :description: |-
+    CSI Pt ; Pl ; Pb ; Pr ' w
+    Enable Filter Rectangle (DECEFR), VT420 and up.
+    Parameters are [top;left;bottom;right].
+    Defines the coordinates of a filter rectangle and activates
+    it.  Anytime the locator is detected outside of the filter
+    rectangle, an outside rectangle event is generated and the
+    rectangle is disabled.  Filter rectangles are always treated
+    as "one-shot" events.  Any parameters that are omitted default
+    to the current locator position.  If all parameters are omit-
+    ted, any locator motion will be reported.  DECELR always can-
+    cels any prevous rectangle definition.
+  :params_num: 4
+  :params_defaults: []
+  :representations:
+  - :human: CSI P4 '
+    :control_set: CSI
+    :sequence:
+    - 39
+DECREQTPARM:
+  :implemented: False
+  :name: DECREQTPARM
+  :summary: Request Terminal Parameters
+  :description: |-
+    CSI Ps x  Request Terminal Parameters (DECREQTPARM).
+    if Ps is a "0" (default) or "1", and xterm is emulating VT100,
+    the control sequence elicits a response of the same form whose
+    parameters describe the terminal:
+      Ps -> the given Ps incremented by 2.
+      Pn = 1  <- no parity.
+      Pn = 1  <- eight bits.
+      Pn = 1  <- 2  8  transmit 38.4k baud.
+      Pn = 1  <- 2  8  receive 38.4k baud.
+      Pn = 1  <- clock multiplier.
+      Pn = 0  <- STP flags.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 x
+    :control_set: CSI
+    :sequence:
+    - 120
+DECSACE:
+  :implemented: False
+  :name: DECSACE
+  :summary: XXX
+  :description: |-
+    CSI Ps * x
+    Select Attribute Change Extent (DECSACE).
+      Ps = 0  -> from start to end position, wrapped.
+      Ps = 1  -> from start to end position, wrapped.
+      Ps = 2  -> rectangle (exact).
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 *
+    :control_set: CSI
+    :sequence:
+    - 42
+DECFRA:
+  :implemented: False
+  :name: DECFRA
+  :summary: XXX
+  :description: |-
+    CSI Pc ; Pt ; Pl ; Pb ; Pr $ x
+    Fill Rectangular Area (DECFRA), VT420 and up.
+      Pc is the character to use.
+      Pt; Pl; Pb; Pr denotes the rectangle.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: CSI P
+    :control_set: CSI
+    :sequence:
+    - 80
+DECRQCRA:
+  :implemented: False
+  :name: DECRQCRA
+  :summary: XXX
+  :description: |-
+    CSI Pi ; Pg ; Pt; Pl; Pb; Pr * y
+    Request Checksum of Rectangular Area (DECRQCRA), VT420 and up.
+    Response is
+    DCS Pi ! x x x x ST
+      Pi is the request id.
+      Pg is the page number.
+      Pt; Pl; Pb; Pr denotes the rectangle.
+      The x's are hexadecimal digits 0-9 and A-F.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: CSI P
+    :control_set: CSI
+    :sequence:
+    - 80
+DECELR:
+  :implemented: False
+  :name: DECELR
+  :summary: XXX
+  :description: |-
+    CSI Ps ; Pu ' z
+    Enable Locator Reporting (DECELR).
+    Valid values for the first parameter:
+      Ps = 0  -> Locator disabled (default).
+      Ps = 1  -> Locator enabled.
+      Ps = 2  -> Locator enabled for one report, then disabled.
+    The second parameter specifies the coordinate unit for locator
+    reports.
+    Valid values for the second parameter:
+      Pu = 0  <- or omitted -> default to character cells.
+      Pu = 1  <- device physical pixels.
+      Pu = 2  <- character cells.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 P
+    :control_set: CSI
+    :sequence:
+    - 80
+DECERA:
+  :implemented: False
+  :name: DECERA
+  :summary: XXX
+  :description: |-
+    CSI Pt; Pl; Pb; Pr$ z
+    Erase Rectangular Area (DECERA), VT400 and up.
+      Pt; Pl; Pb; Pr denotes the rectangle.
+  :params_num: 3
+  :params_defaults: []
+  :representations:
+  - :human: CSI P3 P
+    :control_set: CSI
+    :sequence:
+    - 80
+DECSLE:
+  :implemented: False
+  :name: DECSLE
+  :summary: XXX
+  :description: |-
+    CSI Pm ' {
+    Select Locator Events (DECSLE).
+    Valid values for the first (and any additional parameters)
+    are:
+      Ps = 0  -> only respond to explicit host requests (DECRQLP).
+       (This is default).  It also cancels any filter
+       rectangle.
+      Ps = 1  -> report button down transitions.
+      Ps = 2  -> do not report button down transitions.
+      Ps = 3  -> report button up transitions.
+      Ps = 4  -> do not report button up transitions.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 '
+    :control_set: CSI
+    :sequence:
+    - 39
+DECSERA:
+  :implemented: False
+  :name: DECSERA
+  :summary: XXX
+  :description: |-
+    CSI Pt; Pl; Pb; Pr $ {
+    Selective Erase Rectangular Area (DECSERA), VT400 and up.
+      Pt; Pl; Pb; Pr denotes the rectangle.
+  :params_num: 4
+  :params_defaults: []
+  :representations:
+  - :human: CSI P4$ {
+    :control_set: CSI
+    :sequence:
+    - 123
+DECRQLP:
+  :implemented: False
+  :name: DECRQLP
+  :summary: XXX
+  :description: |-
+    CSI Ps ' |
+    Request Locator Position (DECRQLP).
+    Valid values for the parameter are:
+      Ps = 0 , 1 or omitted -> transmit a single DECLRP locator
+    report.
+
+    If Locator Reporting has been enabled by a DECELR, xterm will
+    respond with a DECLRP Locator Report.  This report is also
+    generated on button up and down events if they have been
+    enabled with a DECSLE, or when the locator is detected outside
+    of a filter rectangle, if filter rectangles have been enabled
+    with a DECEFR.
+
+      -> CSI Pe ; Pb ; Pr ; Pc ; Pp &  w
+
+    Parameters are [event;button;row;column;page].
+    Valid values for the event:
+      Pe = 0  -> locator unavailable - no other parameters sent.
+      Pe = 1  -> request - xterm received a DECRQLP.
+      Pe = 2  -> left button down.
+      Pe = 3  -> left button up.
+      Pe = 4  -> middle button down.
+      Pe = 5  -> middle button up.
+      Pe = 6  -> right button down.
+      Pe = 7  -> right button up.
+      Pe = 8  -> M4 button down.
+      Pe = 9  -> M4 button up.
+      Pe = 1 0  -> locator outside filter rectangle.
+    The "button" parameter is a bitmask indicating which buttons
+    are pressed:
+      Pb = 0  <- no buttons down.
+      Pb & 1  <- right button down.
+      Pb & 2  <- middle button down.
+      Pb & 4  <- left button down.
+      Pb & 8  <- M4 button down.
+    The "row" and "column" parameters are the coordinates of the
+    locator position in the xterm window, encoded as ASCII deci-
+    mal.
+    The "page" parameter is not used by xterm.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 '
+    :control_set: CSI
+    :sequence:
+    - 39
+DECIC:
+  :implemented: False
+  :name: DECIC
+  :summary: XXX
+  :description: |-
+    CSI Pm ' }
+    Insert Ps Column(s) (default = 1) (DECIC), VT420 and up.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 '
+    :control_set: CSI
+    :sequence:
+    - 39
+DECDC:
+  :implemented: False
+  :name: DECDC
+  :summary: XXX
+  :description: |
+    CSI Pm ' ~
+    Delete Ps Column(s) (default = 1) (DECDC), VT420 and up.
+  :params_num: 1
+  :params_defaults: []
+  :representations:
+  - :human: CSI P1 '
+    :control_set: CSI
+    :sequence:
+    - 39
+S7C1T:
+  :implemented: False
+  :name: S7C1T
+  :summary: 7-bit controls
+  :description: ESC SP F  7-bit controls (S7C1T).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC SP F
+    :control_set: ESC
+    :sequence:
+    - 83
+    - 70
+S8C1T:
+  :implemented: False
+  :name: S8C1T
+  :summary: 8-bit controls
+  :description: ESC SP G  8-bit controls (S8C1T).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC SP G
+    :control_set: ESC
+    :sequence:
+    - 83
+    - 71
+XANSI1:
+  :implemented: False
+  :name: XANSI1
+  :summary: Set ANSI conformance level 1
+  :description: ESC SP L  Set ANSI conformance level 1 (dpANS X3.134.1 L).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC SP L
+    :control_set: ESC
+    :sequence:
+    - 83
+    - 76
+XANSI2:
+  :implemented: False
+  :name: XANSI2
+  :summary: Set ANSI conformance level 2
+  :description: ESC SP M  Set ANSI conformance level 2 (dpANS X3.134.1 M).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC SP M
+    :control_set: ESC
+    :sequence:
+    - 83
+    - 77
+XANSI3:
+  :implemented: False
+  :name: XANSI3
+  :summary: Set ANSI conformance level 3
+  :description: ESC SP N  Set ANSI conformance level 3 (dpANS X3.134.1 N).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC SP N
+    :control_set: ESC
+    :sequence:
+    - 83
+    - 78
+XDECDHL3:
+  :implemented: False
+  :name: XDECDHL3
+  :summary: DEC double-height line, top half
+  :description: 'ESC # 3   DEC double-height line, top half (DECDHL 3).'
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: 'ESC # 3'
+    :control_set: ESC
+    :sequence:
+    - 35
+    - 51
+XDECDHL4:
+  :implemented: False
+  :name: XDECDHL4
+  :summary: DEC double-height line, bottom half
+  :description: 'ESC # 4   DEC double-height line, bottom half (DECDHL 4).'
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: 'ESC # 4'
+    :control_set: ESC
+    :sequence:
+    - 35
+    - 52
+DECSWL:
+  :implemented: False
+  :name: DECSWL
+  :summary: DEC single-width line
+  :description: 'ESC # 5   DEC single-width line (DECSWL).'
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: 'ESC # 5'
+    :control_set: ESC
+    :sequence:
+    - 35
+    - 53
+DECDWL:
+  :implemented: False
+  :name: DECDWL
+  :summary: DEC double-width line
+  :description: 'ESC # 6   DEC double-width line (DECDWL).'
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: 'ESC # 6'
+    :control_set: ESC
+    :sequence:
+    - 35
+    - 54
+DECALN:
+  :implemented: False
+  :name: DECALN
+  :summary: DEC Screen Alignment Test
+  :description: 'ESC # 8   DEC Screen Alignment Test (DECALN).'
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: 'ESC # 8'
+    :control_set: ESC
+    :sequence:
+    - 35
+    - 56
+XDEFCS:
+  :implemented: False
+  :name: XDEFCS
+  :summary: Select default character set.  That is ISO 8859-1 (ISO 2022)
+  :description: ESC % @   Select default character set.  That is ISO 8859-1 (ISO 2022).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC % @
+    :control_set: ESC
+    :sequence:
+    - 37
+    - 64
+XUTFCS:
+  :implemented: False
+  :name: XUTFCS
+  :summary: Select UTF-8 character set (ISO 2022).
+  :description: ESC % G   Select UTF-8 character set (ISO 2022). (HFD13)
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC % G
+    :control_set: ESC
+    :sequence:
+    - 37
+    - 71
+XDESG0:
+  :implemented: False
+  :name: XDESG0
+  :summary: Designate G0 Character Set (ISO 2022, VT100).
+  :description: |-
+    ESC ( C   Designate G0 Character Set (ISO 2022, VT100). (HFD14)
+    Final character C for designating 94-character sets.  In this
+    list, 0 , A  and B  apply to VT100 and up, the remainder to
+    VT220 and up.  The VT220 character sets, together with the
+    Portuguese character set are activated by the National
+    Replacement Character controls.  The A  is a special case,
+    since it is also activated by the VT300-control for British
+    Latin-1 separately from the National Replacement Character
+    controls.
+      C = 0  -> DEC Special Character and Line Drawing Set.
+      C = <  -> DEC Supplementary (VT200).
+      C = % 5  -> DEC Supplementary Graphics (VT300).
+      C = >  -> DEC Technical (VT300).
+      C = A  -> United Kingdom (UK).
+      C = B  -> United States (USASCII).
+      C = 4  -> Dutch.
+      C = C  or 5  -> Finnish.
+      C = R  or f  -> French.
+      C = Q  or 9  -> French Canadian (VT200, VT300).
+      C = K  -> German.
+      C = Y  -> Italian.
+      C = ` , E  or 6  -> Norwegian/Danish.
+      C = % 6  -> Portuguese (VT300).
+      C = Z  -> Spanish.
+      C = H  or 7  -> Swedish.
+      C = =  -> Swiss.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC ( C
+    :control_set: ESC
+    :sequence:
+    - 40
+    - 67
+XDESG1:
+  :implemented: True
+  :name: XDESG1
+  :summary: Designate G1 Character Set (ISO 2022, VT100).
+  :description: |-
+    ESC ) C   Designate G1 Character Set (ISO 2022, VT100). (HFD15)
+    The same character sets apply as for ESC ( C.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC ) C
+    :control_set: ESC
+    :sequence:
+    - 41
+XDESG2:
+  :implemented: False
+  :name: XDESG2
+  :summary: Designate G2 Character Set (ISO 2022, VT220).
+  :description: |-
+    ESC * C   Designate G2 Character Set (ISO 2022, VT220). (HFD16)
+    The same character sets apply as for ESC ( C.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC * C
+    :control_set: ESC
+    :sequence:
+    - 42
+XDESG3:
+  :implemented: False
+  :name: XDESG3
+  :summary: Designate G3 Character Set (ISO 2022, VT220).
+  :description: |-
+    ESC + C   Designate G3 Character Set (ISO 2022, VT220). (HFD17)
+    The same character sets apply as for ESC ( C.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC + C
+    :control_set: ESC
+    :sequence:
+    - 43
+XDESG1B:
+  :implemented: False
+  :name: XDESG1B
+  :summary: Designate G1 Character Set (VT300).
+  :description: |-
+    ESC - C   Designate G1 Character Set (VT300). (HFD18)
+    The same character sets apply as for ESC ( C.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC - C
+    :control_set: ESC
+    :sequence:
+    - 45
+XDESG2B:
+  :implemented: False
+  :name: XDESG2B
+  :summary: Designate G2 Character Set (VT300).
+  :description: |-
+    ESC . C   Designate G2 Character Set (VT300).
+    The same character sets apply as for ESC ( C.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC . C
+    :control_set: ESC
+    :sequence:
+    - 46
+XDESG3B:
+  :implemented: False
+  :name: XDESG3B
+  :summary: Designate G3 Character Set (VT300).
+  :description: |-
+    ESC / C   Designate G3 Character Set (VT300). (HFD20)
+    These work for 96-character sets only.
+      C = A  -> ISO Latin-1 Supplemental.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC / C
+    :control_set: ESC
+    :sequence:
+    - 47
+DECBI:
+  :implemented: False
+  :name: DECBI
+  :summary: Back Index
+  :description: ESC 6     Back Index (DECBI), VT420 and up.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC 6
+    :control_set: ESC
+    :sequence:
+    - 54
+DECSC:
+  :implemented: False
+  :name: DECSC
+  :summary: Save Cursor
+  :description: ESC 7     Save Cursor (DECSC).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC 7
+    :control_set: ESC
+    :sequence:
+    - 55
+DECRC:
+  :implemented: False
+  :name: DECRC
+  :summary: Restore Cursor
+  :description: ESC 8     Restore Cursor (DECRC).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC 8
+    :control_set: ESC
+    :sequence:
+    - 56
+DECFI:
+  :implemented: False
+  :name: DECFI
+  :summary: Forward Index
+  :description: ESC 9     Forward Index (DECFI), VT420 and up.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC 9
+    :control_set: ESC
+    :sequence:
+    - 57
+DECKPAM:
+  :implemented: False
+  :name: DECKPAM
+  :summary: Application Keypad
+  :description: ESC =     Application Keypad (DECKPAM).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC =
+    :control_set: ESC
+    :sequence:
+    - 61
+DECKPNM:
+  :implemented: True
+  :name: DECKPNM
+  :summary: Normal Keypad
+  :description: ESC >     Normal Keypad (DECKPNM).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC >
+    :control_set: ESC
+    :sequence:
+    - 62
+XCLL:
+  :implemented: False
+  :name: XCLL
+  :summary: Cursor to lower left corner of screen.  This is enabled by the
+  :description: |-
+    ESC F     Cursor to lower left corner of screen.  This is enabled by the
+    hpLowerleftBugCompat resource.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC F
+    :control_set: ESC
+    :sequence:
+    - 70
+RIS:
+  :implemented: False
+  :name: RIS
+  :summary: Full Reset
+  :description: ESC c     Full Reset (RIS).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC c
+    :control_set: ESC
+    :sequence:
+    - 99
+XMEMLCK:
+  :implemented: False
+  :name: XMEMLCK
+  :summary: Memory Lock (per HP terminals).  Locks memory above the cur-
+  :description: |-
+    ESC l     Memory Lock (per HP terminals).  Locks memory above the cur- (HFD30)
+    sor.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC l
+    :control_set: ESC
+    :sequence:
+    - 108
+XMEMULCK:
+  :implemented: False
+  :name: XMEMULCK
+  :summary: Memory Unlock
+  :description: ESC m     Memory Unlock (per HP terminals).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC m
+    :control_set: ESC
+    :sequence:
+    - 109
+LS2:
+  :implemented: False
+  :name: LS2
+  :summary: Invoke the G2 Character Set as GL
+  :description: ESC n     Invoke the G2 Character Set as GL (LS2).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC n
+    :control_set: ESC
+    :sequence:
+    - 110
+LS3:
+  :implemented: False
+  :name: LS3
+  :summary: Invoke the G3 Character Set as GL
+  :description: ESC o     Invoke the G3 Character Set as GL (LS3).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC o
+    :control_set: ESC
+    :sequence:
+    - 111
+LS3R:
+  :implemented: False
+  :name: LS3R
+  :summary: Invoke the G3 Character Set as GR
+  :description: ESC |     Invoke the G3 Character Set as GR (LS3R).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC |
+    :control_set: ESC
+    :sequence:
+    - 124
+LS2R:
+  :implemented: False
+  :name: LS2R
+  :summary: Invoke the G2 Character Set as GR
+  :description: ESC }     Invoke the G2 Character Set as GR (LS2R).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC }
+    :control_set: ESC
+    :sequence:
+    - 125
+LS1R:
+  :implemented: False
+  :name: LS1R
+  :summary: Invoke the G1 Character Set as GR
+  :description: ESC ~     Invoke the G1 Character Set as GR (LS1R).
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: ESC ~
+    :control_set: ESC
+    :sequence:
+    - 126
+RI:
+  :implemented: True
+  :name: RI
+  :summary: REVERSE LINE FEED
+  :description: |-
+    From Ecma-048:
+    If the DEVICE COMPONENT SELECT MODE (DCSM) is set to PRESENTATION, RI causes the
+    active presentation position to be moved in the presentation component to the corresponding character
+    position of the preceding line.
+  :params_num: 0
+  :params_defaults: []
+  :representations:
+  - :human: '0x8d'
+    :control_set: C
+    :sequence:
+    - 141
+  - :human: ESC M
+    :control_set: ESC
+    :sequence:
+    - 77

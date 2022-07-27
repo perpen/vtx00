@@ -1,0 +1,8 @@
+*.log
+*.prof
+__pycache__/
+oo
+tmp/
+/vparser/tables.go
+/vman/vman
+/vsel/vsel

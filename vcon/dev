@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e -o pipefail
+
+test() {
+    # inw sync *.rb -- rspec tree_spec.rb
+    inw sync *.py -- python -m unittest *_test.py
+}
+
+cd "$(dirname $0)"
+eval "$@"

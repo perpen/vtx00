@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e -o pipefail
+
+tmux-windows() {
+    for dir in vparser vscreen vterm vman vcon vsel; do
+        tmux2 window ~/src/vtx00/$dir
+    done
+}
+
+cd "$(dirname $0)"
+eval "$@"

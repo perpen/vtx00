@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e -o pipefail
+
+run() {
+    export TERM=xterm-color
+    # reset; rm -f /tmp/vman-*.sock; go build && ./vman; exit $?
+    reset; rm -f /tmp/vman-*.sock; go build && ./vman -cpuprofile cpu.prof -memprofile mem.prof
+}
+
+build() {
+    inw sync *.go */*.go -- go build
+}
+
+test() {
+    inw sync $(find .. -name \*.go) -- go test
+}
+
+log() {
+    # less +F --follow-name vman.log
+    case "$1" in
+    notimp) rx='not implemented' ;;
+    *) rx=. ;;
+    esac
+    tail -F vman.log | grep -E "$rx"
+}
+
+cd "$(dirname $0)"
+eval "$@"

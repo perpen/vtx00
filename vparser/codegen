@@ -1,0 +1,404 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: false
+
+# 1. generates parsing tables in memory
+# 2. from these, generates the go code
+
+############## state machine
+
+# Henri:
+# From https://github.com/p-gen/hlvt, with a few changes:
+# - To make reviewing the transitions easier I renamed the states according
+#   to the first graph on http://bjoern.hoehrmann.de/utf-8/decoder/dfa/
+# - Fixed transition from ground via 0xed
+# - Added a :clear entry action to the ground state
+# - Removed unnecessary :clear actions on the UTF states
+
+class StateTransition
+  attr_accessor :to_state
+  def initialize(to_state)
+    @to_state = to_state
+  end
+end
+
+def transition_to(state)
+  StateTransition.new(state)
+end
+
+$states = {}
+
+$anywhere_transitions = {
+  0x18 => [:execute, transition_to(:GROUND)],
+  0x1a => [:execute, transition_to(:GROUND)],
+  0x1b => transition_to(:ESCAPE)
+}
+
+$states[:GROUND] = {
+  :on_entry => :clear,
+  0x00..0x17 => :execute,
+  0x19 => :execute,
+  0x1c..0x1f => :execute,
+  0x20..0x7f => :print,
+  0xc2..0xdf => [:utf, transition_to(:UTF_S2)],
+  0xe0 => [:utf, transition_to(:UTF_S4)],
+  0xe1..0xec => [:utf, transition_to(:UTF_S3)],
+  0xed => [:utf, transition_to(:UTF_S5)],
+  0xee..0xef => [:utf, transition_to(:UTF_S3)],
+  0xf0 => [:utf, transition_to(:UTF_S6)],
+  0xf1..0xf3 => [:utf, transition_to(:UTF_S7)],
+  0xf4 => [:utf, transition_to(:UTF_S8)]
+}
+
+$states[:UTF_S2] = {
+  0x80..0xbf => [:print, transition_to(:GROUND)]
+}
+
+$states[:UTF_S4] = {
+  0xa0..0xbf => [:utf, transition_to(:UTF_S2)]
+}
+
+$states[:UTF_S5] = {
+  0x80..0x9f => [:utf, transition_to(:UTF_S2)]
+}
+
+$states[:UTF_S3] = {
+  0x80..0xbf => [:utf, transition_to(:UTF_S2)]
+}
+
+$states[:UTF_S2] = {
+  0x80..0xbf => [:print, transition_to(:GROUND)]
+}
+
+$states[:UTF_S6] = {
+  0x90..0xbf => [:utf, transition_to(:UTF_S3)]
+}
+
+$states[:UTF_S8] = {
+  0x80..0x8f => [:utf, transition_to(:UTF_S3)]
+}
+
+$states[:UTF_S7] = {
+  0x80..0xbf => [:utf, transition_to(:UTF_S3)]
+}
+
+$states[:UTF_S3] = {
+  0x80..0xbf => [:utf, transition_to(:UTF_S2)]
+}
+
+$states[:UTF_S2] = {
+  0x80..0xbf => [:print, transition_to(:GROUND)]
+}
+
+$states[:ESCAPE] = {
+  :on_entry => :clear,
+  0x00..0x17 => :execute,
+  0x19 => :execute,
+  0x1c..0x1f => :execute,
+  0x7f => :ignore,
+  0x20..0x2f => [:collect, transition_to(:ESCAPE_INTERMEDIATE)],
+  0x30..0x4f => [:esc_dispatch, transition_to(:GROUND)],
+  0x51..0x57 => [:esc_dispatch, transition_to(:GROUND)],
+  0x59 => [:esc_dispatch, transition_to(:GROUND)],
+  0x5a => [:esc_dispatch, transition_to(:GROUND)],
+  0x5c => [:esc_dispatch, transition_to(:GROUND)],
+  0x60..0x7e => [:esc_dispatch, transition_to(:GROUND)],
+  0x5b => transition_to(:CSI_ENTRY),
+  0x5d => transition_to(:OSC_STRING),
+  0x50 => transition_to(:DCS_ENTRY),
+  0x58 => transition_to(:SOS_PM_APC_STRING),
+  0x5e => transition_to(:SOS_PM_APC_STRING),
+  0x5f => transition_to(:SOS_PM_APC_STRING)
+}
+
+$states[:ESCAPE_INTERMEDIATE] = {
+  0x00..0x17 => :execute,
+  0x19 => :execute,
+  0x1c..0x1f => :execute,
+  0x20..0x2f => :collect,
+  0x7f => :ignore,
+  0x30..0x7e => [:esc_dispatch, transition_to(:GROUND)]
+}
+
+$states[:CSI_ENTRY] = {
+  :on_entry => :clear,
+  0x00..0x17 => :execute,
+  0x19 => :execute,
+  0x1c..0x1f => :execute,
+  0x7f => :ignore,
+  0x20..0x2f => [:collect, transition_to(:CSI_INTERMEDIATE)],
+  0x3a => transition_to(:CSI_IGNORE),
+  0x30..0x39 => [:param, transition_to(:CSI_PARAM)],
+  0x3b => [:param, transition_to(:CSI_PARAM)],
+  0x3c..0x3f => [:collect, transition_to(:CSI_PARAM)],
+  0x40..0x7e => [:csi_dispatch, transition_to(:GROUND)]
+}
+
+$states[:CSI_IGNORE] = {
+  0x00..0x17 => :execute,
+  0x19 => :execute,
+  0x1c..0x1f => :execute,
+  0x20..0x3f => :ignore,
+  0x7f => :ignore,
+  0x40..0x7e => transition_to(:GROUND)
+}
+
+$states[:CSI_PARAM] = {
+  0x00..0x17 => :execute,
+  0x19 => :execute,
+  0x1c..0x1f => :execute,
+  0x30..0x39 => :param,
+  0x3b => :param,
+  0x7f => :ignore,
+  0x3a => transition_to(:CSI_IGNORE),
+  0x3c..0x3f => transition_to(:CSI_IGNORE),
+  0x20..0x2f => [:collect, transition_to(:CSI_INTERMEDIATE)],
+  0x40..0x7e => [:csi_dispatch, transition_to(:GROUND)]
+}
+
+$states[:CSI_INTERMEDIATE] = {
+  0x00..0x17 => :execute,
+  0x19 => :execute,
+  0x1c..0x1f => :execute,
+  0x20..0x2f => :collect,
+  0x7f => :ignore,
+  0x30..0x3f => transition_to(:CSI_IGNORE),
+  0x40..0x7e => [:csi_dispatch, transition_to(:GROUND)]
+}
+
+$states[:DCS_ENTRY] = {
+  :on_entry => :clear,
+  0x00..0x17 => :ignore,
+  0x19 => :ignore,
+  0x1c..0x1f => :ignore,
+  0x7f => :ignore,
+  0x3a => transition_to(:DCS_IGNORE),
+  0x20..0x2f => [:collect, transition_to(:DCS_INTERMEDIATE)],
+  0x30..0x39 => [:param, transition_to(:DCS_PARAM)],
+  0x3b => [:param, transition_to(:DCS_PARAM)],
+  0x3c..0x3f => [:collect, transition_to(:DCS_PARAM)],
+  0x40..0x7e => [transition_to(:DCS_PASSTHROUGH)]
+}
+
+$states[:DCS_INTERMEDIATE] = {
+  0x00..0x17 => :ignore,
+  0x19 => :ignore,
+  0x1c..0x1f => :ignore,
+  0x20..0x2f => :collect,
+  0x7f => :ignore,
+  0x30..0x3f => transition_to(:DCS_IGNORE),
+  0x40..0x7e => transition_to(:DCS_PASSTHROUGH)
+}
+
+$states[:DCS_IGNORE] = {
+  0x00..0x17 => :ignore,
+  0x19 => :ignore,
+  0x1c..0x1f => :ignore,
+  0x20..0x7f => :ignore
+}
+
+$states[:DCS_PARAM] = {
+  0x00..0x17 => :ignore,
+  0x19 => :ignore,
+  0x1c..0x1f => :ignore,
+  0x30..0x39 => :param,
+  0x3b => :param,
+  0x7f => :ignore,
+  0x3a => transition_to(:DCS_IGNORE),
+  0x3c..0x3f => transition_to(:DCS_IGNORE),
+  0x20..0x2f => [:collect, transition_to(:DCS_INTERMEDIATE)],
+  0x40..0x7e => transition_to(:DCS_PASSTHROUGH)
+}
+
+$states[:DCS_PASSTHROUGH] = {
+  :on_entry => :hook,
+  0x00..0x17 => :put,
+  0x19 => :put,
+  0x1c..0x1f => :put,
+  0x20..0x7e => :put,
+  0x7f => :ignore,
+  :on_exit => :unhook
+}
+
+$states[:SOS_PM_APC_STRING] = {
+  0x00..0x17 => :ignore,
+  0x19 => :ignore,
+  0x1c..0x1f => :ignore,
+  0x20..0x7f => :ignore
+}
+
+$states[:OSC_STRING] = {
+  :on_entry => :osc_start,
+  0x00..0x17 => :ignore,
+  0x19 => :ignore,
+  0x1c..0x1f => :ignore,
+  0x20..0x7f => :osc_put,
+  :on_exit => :osc_end
+}
+
+# get the list of actions implicit in the tables
+
+action_names = {}
+$states.each do |_state, transitions|
+  transitions.each do |_keys, actions|
+    actions = [actions] unless actions.is_a?(Array)
+    actions.each do |action|
+      action_names[action] = 1 if action.is_a?(Symbol)
+    end
+  end
+end
+
+# establish an ordering to the states and actions
+
+$actions_in_order = action_names.keys.sort { |a1, a2| a1.to_s <=> a2.to_s } + [:error]
+$states_in_order  = $states.keys.sort { |s1, s2| s1.to_s <=> s2.to_s }
+
+#
+# Expand the above range-based data structures (which are convenient
+# to write) into fully expanded tables (which are easier to use).
+#
+
+$state_tables = {}
+
+def expand_ranges(hash_with_ranges_as_keys)
+  array = []
+  hash_with_ranges_as_keys.each do |range, val|
+    if range.is_a?(Range)
+      range.each do |i|
+        array[i] = val
+      end
+    elsif range.is_a?(Integer)
+      array[range] = val
+    end
+  end
+
+  array
+end
+
+$states.each do |state, transitions|
+  $state_tables[state] = expand_ranges(transitions)
+end
+
+# seed all the states with the anywhere transitions
+$anywhere_transitions = expand_ranges($anywhere_transitions)
+
+$state_tables.each do |state, transitions|
+  $anywhere_transitions.each_with_index do |transition, i|
+    next if transition.nil?
+
+    if transitions[i]
+      raise "State #{state} already had a transition defined for 0x#{i.to_s(16)}, but " \
+            'that transition is also an anywhere transition!'
+    end
+    transitions[i] = transition
+  end
+end
+
+# for consistency, make all transitions *lists* of actions
+$state_tables.each do |_state, transitions|
+  transitions.map! { |t| t.is_a?(Array) ? t : [t] }
+end
+
+# sanity check: for every state there should be a transition defined
+# for every character between 0 and A0.
+$state_tables.each do |state, table|
+  table.each_with_index do |val, i|
+    unless val
+      raise "No transition defined from state #{state}, char 0x#{i.to_s(16)}!"
+    end
+  end
+end
+
+############## go generation
+
+class String
+  def camel
+    downcase!
+    capitalize!
+    gsub!(/_(.)/) do |s|
+      s[1].upcase
+    end
+    self
+  end
+end
+
+def generate_tables(tables_output_path)
+  puts "generating #{tables_output_path}"
+  File.open(tables_output_path, 'w') do |f|
+    f.puts '// Generated by codegen.rb'
+    f.puts
+    f.puts 'package vparser'
+    f.puts
+    f.puts 'const ('
+    f.puts '   _ uint = iota'
+    $states_in_order.each_with_index do |state, _i|
+      f.puts "   state#{state.to_s.camel}"
+    end
+    f.puts ')'
+    f.puts
+    f.puts 'const ('
+    f.puts '   _ uint = iota'
+    $actions_in_order.each_with_index do |action, _i|
+      f.puts "   action#{action.to_s.camel}"
+    end
+    f.puts ')'
+    f.puts
+    f.puts 'var actionNames = [...]string{'
+    f.puts '   "<no action>",'
+    $actions_in_order.each do |action|
+      f.puts "   \"#{action.to_s.upcase}\","
+    end
+    f.puts '}'
+    f.puts
+    f.puts 'var stateNames = [...]string{'
+    f.puts '   "<no state>",'
+    $states_in_order.each do |state|
+      f.puts "   \"#{state}\","
+    end
+    f.puts '}'
+    f.puts
+    f.puts "var stateTable = [#{$states_in_order.length}][256]uint{"
+    $states_in_order.each_with_index do |state, i|
+      f.puts "  {  // state#{state.to_s.camel} = #{i}"
+      $state_tables[state].each_with_index do |state_change, i|
+        if !state_change
+          f.puts '    0,'
+        else
+          (action,) = state_change.find_all { |s| s.is_a?(Symbol) }
+          (state,) = state_change.find_all { |s| s.is_a?(StateTransition) }
+          action_str = action ? "action#{action.to_s.camel}" : '0'
+          state_str =  state ? "state#{state.to_state.to_s.camel}" : '0'
+          f.puts "/* #{i}\t*/  #{action_str} | (#{state_str} << 4),"
+        end
+      end
+      f.puts '  },'
+    end
+
+    f.puts '}'
+    f.puts
+    f.puts 'var entryActions = [...]uint{'
+    $states_in_order.each do |state|
+      actions = $states[state]
+      if actions[:on_entry]
+        f.puts "   action#{actions[:on_entry].to_s.camel}, // #{state}"
+      else
+        f.puts "   0,  // none for #{state}"
+      end
+    end
+    f.puts '}'
+    f.puts
+    f.puts 'var exitActions = []uint{'
+    $states_in_order.each do |state|
+      actions = $states[state]
+      if actions[:on_exit]
+        f.puts "   action#{actions[:on_exit].to_s.camel}, /* #{state} */"
+      else
+        f.puts "   0,  // none for #{state}"
+      end
+    end
+    f.puts '}'
+  end
+end
+
+OUTPUT = 'tables.go'
+generate_tables OUTPUT
+system "go fmt #{OUTPUT}"
