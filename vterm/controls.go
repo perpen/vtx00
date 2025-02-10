@@ -14,7 +14,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o7
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{7},
 			},
@@ -27,7 +27,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o10
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{8},
 			},
@@ -40,7 +40,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o15
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{13},
 			},
@@ -53,7 +53,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o5
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{5},
 			},
@@ -66,7 +66,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o14
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{12},
 			},
@@ -79,7 +79,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o12
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{10},
 			},
@@ -92,7 +92,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o17
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{15},
 			},
@@ -105,7 +105,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o16
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{14},
 			},
@@ -118,7 +118,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o40
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{32},
 			},
@@ -131,7 +131,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o0
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{0},
 			},
@@ -144,7 +144,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// Ctrl 0o13
-			vparser.Trigger{
+			{
 				Set:      vparser.SetC01,
 				Sequence: []byte{11},
 			},
@@ -157,7 +157,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI @
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{64},
 			},
@@ -170,7 +170,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI A
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{65},
 			},
@@ -183,12 +183,12 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI B
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{66},
 			},
 			// ESC B
-			vparser.Trigger{
+			{
 				Set:      vparser.SetESC,
 				Sequence: []byte{66},
 			},
@@ -201,7 +201,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI C
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{67},
 			},
@@ -214,7 +214,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI D
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{68},
 			},
@@ -227,7 +227,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI E
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{69},
 			},
@@ -240,7 +240,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI F
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{70},
 			},
@@ -253,7 +253,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI G
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{71},
 			},
@@ -266,7 +266,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1, 1},
 		Triggers: []vparser.Trigger{
 			// CSI H
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{72},
 			},
@@ -279,7 +279,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI I
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{73},
 			},
@@ -292,7 +292,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{0},
 		Triggers: []vparser.Trigger{
 			// CSI J
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{74},
 			},
@@ -311,7 +311,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI ? J
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{63, 74},
 			},
@@ -324,7 +324,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{0},
 		Triggers: []vparser.Trigger{
 			// CSI K
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{75},
 			},
@@ -342,7 +342,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI ? K
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{63, 75},
 			},
@@ -355,7 +355,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI L
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{76},
 			},
@@ -368,7 +368,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI M
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{77},
 			},
@@ -381,7 +381,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{1},
 		Triggers: []vparser.Trigger{
 			// CSI P
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{80},
 			},
@@ -394,7 +394,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI S
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{83},
 			},
@@ -407,7 +407,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI T
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{84},
 			},
@@ -420,7 +420,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI T
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{84},
 			},
@@ -433,7 +433,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI > T
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{62, 84},
 			},
@@ -446,7 +446,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI X
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{88},
 			},
@@ -459,7 +459,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI Z
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{90},
 			},
@@ -472,7 +472,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI `
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{96},
 			},
@@ -485,7 +485,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI a
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{97},
 			},
@@ -498,7 +498,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI b
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{98},
 			},
@@ -511,7 +511,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI c
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{99},
 			},
@@ -524,7 +524,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI > c
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{62, 99},
 			},
@@ -537,7 +537,7 @@ var AllControls = map[string]vparser.ControlSpec{
 		ParamsDefaults: []int{},
 		Triggers: []vparser.Trigger{
 			// CSI d
-			vparser.Trigger{
+			{
 				Set:      vparser.SetCSI,
 				Sequence: []byte{100},
 			},

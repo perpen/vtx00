@@ -3,7 +3,7 @@ set -e -o pipefail
 
 tmux-windows() {
     for dir in vparser vscreen vterm vman vcon vsel; do
-        tmux2 window ~/src/vtx00/$dir
+        tmux.clj window $(pwd)/$dir
     done
 }
 
